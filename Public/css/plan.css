@@ -1,0 +1,28 @@
+body{
+    font-weight: bold;
+}
+
+li a:hover {
+    background-color: rgb(238, 198, 194);
+    border-radius:40px;
+  }
+
+li a:active {
+    background-color: rgb(238, 133, 133);
+    border-radius:40px;
+}
+
+.nav-item{
+    margin-right: 20px;
+    padding-left:5px;
+}
+
+@media screen and (max-width: 575px) {
+    li a:hover {
+        border-radius:0px;
+      }
+    
+    li a:active {
+        border-radius:0px;
+    }
+}    
