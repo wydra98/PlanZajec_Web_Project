@@ -2,23 +2,20 @@
 <head>
     <meta charset="UTF-8">
     <link rel="Stylesheet" type="text/css" href="../Public/css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <title>PlanZajec</title>
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="../Public/img/Group 23.png">
-        </div>
+        <img src="../Public/img/Group 23.png">
         <form> 
-            <div class ="text">Email lub nick:</div>
-            <input name="email" type="text" placeholder="email@email.com">
-            <div class ="text">Hasło:</div>
-            <input name="password" type="password" placeholder="*********">
-            <button type="submit">Zaloguj</button>
+            <label for="first">Email lub nick:</label>
+            <input name="email" type="text" id="first">
+            <label for="second">Hasło:</label>
+            <input name="password" type="password" id="second">
+            <button id="login" type="submit">Zaloguj</button>
         </form>
-        <div class="register">
-            <button type="submit">Zarejestruj</button>
-        </div>  
+        <button id="register" type="submit">Zarejestruj</button>
     </div>
 </body>
 </html>
