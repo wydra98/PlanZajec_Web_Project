@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="Stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="Stylesheet" href="..Bootstrap/css/bootstrap.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Public/css/navbar.css" />
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <title>PlanZajec</title>
@@ -30,7 +30,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">USTAWIENIA</a>
+                        <a class="nav-link">UDOSTĘPNIJ PLAN</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">WYLOGUJ</a>
                     </li>
                 </ul>
             </div>
@@ -45,6 +49,6 @@
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
     crossorigin="anonymous"></script>
    
-    <script src ="../js/bootstrap.min.js"></script>
+    <script src ="..Bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

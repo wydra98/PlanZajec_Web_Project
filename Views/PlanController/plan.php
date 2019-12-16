@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="Stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="Stylesheet" href="..Bootstrap/css/bootstrap.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Public/css/plan.css" />
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <title>PlanZajec</title>
@@ -185,7 +185,13 @@
             else{
             for($x = 0; $x<$sizeM; $x++)
             {
-                echo '<div class="button" style="background-color:'.$colorsM[$x].'">
+                if($colorsM[$x] == "#2E4053") $borderColor = "#002633";
+                else if($colorsM[$x] == "#3c0044") $borderColor = "rgb(51, 0, 38)";
+                else if($colorsM[$x] == "#85144b") $borderColor = "#80002a";
+                else if($colorsM[$x] == "#006213") $borderColor = "rgb(0, 58, 0)";
+                else  $borderColor = "rgb(58, 0, 0)";
+
+                echo '<div class="button" style="background-color:'.$colorsM[$x].'; border: 3px solid '.$borderColor.'">
                 <label class="labelnames">'.$namesM[$x].'</label>
                 <label class="labelhours">'.$startHoursM[$x].'-'.$endHoursM[$x].'</label></div>';
             }
@@ -199,7 +205,13 @@
             else{
             for($x = 0; $x<$sizeT; $x++)
             { 
-                echo '<div class="button" style="background-color:'.$colorsT[$x].'">
+                if($colorsT[$x] == "#2E4053") $borderColor = "#002633";
+                else if($colorsT[$x] == "#3c0044") $borderColor = "rgb(51, 0, 38)";
+                else if($colorsT[$x] == "#85144b") $borderColor = "#80002a";
+                else if($colorsT[$x] == "#006213") $borderColor = "rgb(0, 58, 0)";
+                else  $borderColor = "rgb(58, 0, 0)";
+
+                echo '<div class="button" style="background-color:'.$colorsT[$x].'; border: 3px solid '.$borderColor.'">
                 <label class="labelnames">'.$namesT[$x].'</label>
                 <label class="labelhours">'.$startHoursT[$x].'-'.$endHoursT[$x].'</label></div>';
             }
@@ -213,7 +225,13 @@
             else{
             for($x = 0; $x<$sizeW; $x++)
             { 
-                echo '<div class="button" style="background-color:'.$colorsW[$x].'">
+                if($colorsW[$x] == "#2E4053") $borderColor = "#002633";
+                else if($colorsW[$x] == "#3c0044") $borderColor = "rgb(51, 0, 38)";
+                else if($colorsW[$x] == "#85144b") $borderColor = "#80002a";
+                else if($colorsW[$x] == "#006213") $borderColor = "rgb(0, 58, 0)";
+                else  $borderColor = "rgb(58, 0, 0)";
+
+                echo '<div class="button" style="background-color:'.$colorsW[$x].'; border: 3px solid '.$borderColor.'">
                 <label class="labelnames">'.$namesW[$x].'</label>
                 <label class="labelhours">'.$startHoursW[$x].'-'.$endHoursW[$x].'</label></div>';
             }
@@ -227,7 +245,13 @@
             else{
             for($x = 0; $x<$sizeTh; $x++)
             { 
-                echo '<div class="button" style="background-color:'.$colorsTh[$x].'">
+                if($colorsTh[$x] == "#2E4053") $borderColor = "#002633";
+                else if($colorsTh[$x] == "#3c0044") $borderColor = "rgb(51, 0, 38)";
+                else if($colorsTh[$x] == "#85144b") $borderColor = "#80002a";
+                else if($colorsTh[$x] == "#006213") $borderColor = "rgb(0, 58, 0)";
+                else  $borderColor = "rgb(58, 0, 0)";
+                
+                echo '<div class="button" style="background-color:'.$colorsTh[$x].'; border: 3px solid '.$borderColor.'">
                 <label class="labelnames">'.$namesT[$x].'</label>
                 <label class="labelhours">'.$startHoursT[$x].'-'.$endHoursT[$x].'</label></div>';
             }
@@ -241,7 +265,13 @@
             else{
             for($x = 0; $x<$sizeF; $x++)
             { 
-                echo '<div class="button" style="background-color:'.$colorsF[$x].'">
+                if($colorsF[$x] == "#2E4053") $borderColor = "#002633";
+                else if($colorsF[$x] == "#3c0044") $borderColor = "rgb(51, 0, 38)";
+                else if($colorsF[$x] == "#85144b") $borderColor = "#80002a";
+                else if($colorsF[$x] == "#006213") $borderColor = "rgb(0, 58, 0)";
+                else  $borderColor = "rgb(58, 0, 0)";
+                
+                echo '<div class="button" style="background-color:'.$colorsF[$x].'; border: 3px solid '.$borderColor.'">
                 <label class="labelnames">'.$namesF[$x].'</label>
                 <label class="labelhours">'.$startHoursF[$x].'-'.$endHoursF[$x].'</label></div>';
             }
@@ -255,7 +285,13 @@
             else{
             for($x = 0; $x<$sizeS; $x++)
             { 
-                echo '<div class="button" style="background-color:'.$colorsS[$x].'">
+                if($colorsS[$x] == "#2E4053") $borderColor = "#002633";
+                else if($colorsS[$x] == "#3c0044") $borderColor = "rgb(51, 0, 38)";
+                else if($colorsS[$x] == "#85144b") $borderColor = "#80002a";
+                else if($colorsS[$x] == "#006213") $borderColor = "rgb(0, 58, 0)";
+                else  $borderColor = "rgb(58, 0, 0)";
+                
+                echo '<div class="button" style="background-color:'.$colorsS[$x].'; border: 3px solid '.$borderColor.'">
                 <label class="labelnames">'.$namesS[$x].'</label>
                 <label class="labelhours">'.$startHoursS[$x].'-'.$endHoursS[$x].'</label></div>';
             }
@@ -269,7 +305,13 @@
             else{
             for($x = 0; $x<$sizeSu; $x++)
             { 
-                echo '<div class="button" style="background-color:'.$colorsSu[$x].'">
+                if($colorsSu[$x] == "#2E4053") $borderColor = "#002633";
+                else if($colorsSu[$x] == "#3c0044") $borderColor = "rgb(51, 0, 38)";
+                else if($colorsSu[$x] == "#85144b") $borderColor = "#80002a";
+                else if($colorsSu[$x] == "#006213") $borderColor = "rgb(0, 58, 0)";
+                else  $borderColor = "rgb(58, 0, 0)";
+                
+                echo '<div class="button" style="background-color:'.$colorsSu[$x].'; border: 3px solid '.$borderColor.'">
                 <label class="labelnames>'.$namesSu[$x].'</label>
                 <label class="labelhours">'.$startHoursSu[$x].'-'.$endHoursSu[$x].'</label></div>';
             }
@@ -287,6 +329,6 @@
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
     crossorigin="anonymous"></script>
    
-    <script src ="../js/bootstrap.min.js"></script>
+    <script src ="..Bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

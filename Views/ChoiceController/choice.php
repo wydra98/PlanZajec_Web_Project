@@ -2,40 +2,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="Stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="Stylesheet" href="..Bootstrap/css/bootstrap.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Public/css/choice.css" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <title>PlanZajec</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-light bg-light navbar-expand-sm">
-            <img src="../Public/img/Repeat Grid 3.png" width="130" height="50" style="margin-top: -22px">
-        
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
-				<span class="navbar-toggler-icon" ></span>
-            </button>
-
-            <div class="collapse navbar-collapse navbar-right" id="menu">
-               <ul class="navbar-nav ml-auto" >
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button">TYDZIEŃ</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Tydzień pierwszy</a>
-                            <a class="dropdown-item" href="#">Tydzień drugi</a>
-                        </div>
-                    </li>
-                    <li class="nav-item" >
-                       <a class="nav-link" href="#">DODAJ LEKCJĘ</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">USTAWIENIA</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    
+   
     <form>
     <div class="container">
         <div class="row">
@@ -55,16 +28,22 @@
                 <label for="usr">Nazwa przedmiotu:</label>
                 <input type="text" class="form-control" id="usr">
             </div>
-            <div class="col-8 offset-2 col-md-4 offset-md-1">
-                <label for="usr">Godzina rozpoczęcia:</label>
+            <div class="col-8 offset-2 col-md-4 offset-md-1" style="display:flex; flex-direction: column;">
+                <label style="color:blue; margin-bottom:-5px;  margin-top:30px">Rozpoczęcie:</label>
+                <label for="usr">Godzina:</label>
+                <input type="text" class="form-control" id="usr">
+                <label for="usr">Minuta:</label>
                 <input type="text" class="form-control" id="usr">
             </div>
-            <div class="col-8 offset-2 col-md-4">
-                <label for="usr">Godzina zakończenia:</label>
+            <div class="col-8 offset-2 col-md-4" style="display:flex; flex-direction: column;">
+                <label style="color:red; margin-bottom:-5px;  margin-top:30px">Zakończenie:</label>
+                <label for="usr">Godzina:</label>
+                <input type="text" class="form-control" id="usr">
+                <label for="usr">Minuta:</label>
                 <input type="text" class="form-control" id="usr">
             </div>
             <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                    <label for="sel1">Wybierz kolor:</label>
+                    <label for="sel1" style="margin-top: 30px">Wybierz kolor:</label>
                     <select class="form-control" id="sel1">
                         <option>Czerwony</option>
                         <option>Zielony</option>
@@ -75,7 +54,7 @@
                         <option>Biały</option>
                     </select>
             </div>
-            <button class="btn btn-primary offset-4 col-4" type="submit" style="background-color:red; border: none">Dodaj</button>
+            <button class="btn btn-primary offset-4 col-4" type="submit" style="background-color:#8E0000; border: 3px solid rgb(58, 0, 0);  margin-top:30px">Dodaj</button>
 
         </div>
     </div>
@@ -89,6 +68,6 @@
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
     crossorigin="anonymous"></script>
    
-    <script src ="../js/bootstrap.min.js"></script>
+    <script src ="..Bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

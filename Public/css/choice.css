@@ -1,4 +1,14 @@
 .container{ 
     margin-top:40px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
 }
 
+.form-control{
+    border: 2px solid black;
+    border-radius: 0px;
+}
+
+label{
+    margin-top: 10px;
+}
