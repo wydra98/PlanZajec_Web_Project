@@ -1,6 +1,10 @@
 <?php
 
-require_once 'Controllers\SecurityController.php';
+require_once 'Controllers\IndexController.php';
+require_once 'Controllers\PlanController.php';
+require_once 'Controllers\ChoiceController.php';
+require_once 'Controllers\RegisterController.php';
+require_once 'Controllers\MainController.php';
 
 class Routing {
     private $routes = [];
@@ -9,8 +13,32 @@ class Routing {
     {
         $this->routes = [
             'index' => [
-                'controller' => 'SecurityController',
+                'controller' => 'IndexController',
                 'action' => 'login'
+            ],
+            'registration' => [
+                'controller' => 'RegistrationController',
+                'action' => 'registration'
+            ],
+
+            'main' => [
+                'controller' => 'MainController',
+                'action' => 'main'
+            ],
+
+            'plan' => [
+                'controller' => 'PlanController',
+                'action' => 'plan'
+            ],
+
+            'choice' => [
+                'controller' => 'ChoiceController',
+                'action' => 'choice'
+            ],
+
+            'logout' => [
+                'controller' => 'IndexController',
+                'action' => 'logout'
             ]
         ];
     }

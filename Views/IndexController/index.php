@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <link rel="Stylesheet" type="text/css" href="../Public/css/style.css" />
+    <link rel="Stylesheet" type="text/css" href="..\..\Public\css\style.css" />
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <title>PlanZajec</title>
 </head>
