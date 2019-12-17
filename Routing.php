@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Controllers\IndexController.php';
+require_once 'Controllers\LoginController.php';
 require_once 'Controllers\PlanController.php';
 require_once 'Controllers\ChoiceController.php';
 require_once 'Controllers\RegisterController.php';
@@ -12,10 +12,11 @@ class Routing {
     public function __construct()
     {
         $this->routes = [
-            'index' => [
-                'controller' => 'IndexController',
+            'login' => [
+                'controller' => 'LoginController',
                 'action' => 'login'
             ],
+
             'registration' => [
                 'controller' => 'RegistrationController',
                 'action' => 'registration'
@@ -37,7 +38,7 @@ class Routing {
             ],
 
             'logout' => [
-                'controller' => 'IndexController',
+                'controller' => 'LoginController',
                 'action' => 'logout'
             ]
         ];

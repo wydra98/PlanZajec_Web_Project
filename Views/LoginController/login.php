@@ -8,7 +8,16 @@
 <body>
     <div class="container">
         <img src="../Public/img/Group 23.png">
-        <form> 
+        <form action="?page=login" method="POST"> 
+            <div class="messages">
+                <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                ?>
+            </div>
             <label for="first">Email lub nick:</label>
             <input name="email" type="text" id="first">
             <label for="second">Hasło:</label>

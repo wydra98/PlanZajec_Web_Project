@@ -1,4 +1,5 @@
 
+
     <header >
         <nav class="navbar bg-light navbar-light" style="font-weight: bold;
     font-family: 'Quicksand', sans-serif;">
@@ -6,7 +7,7 @@
 
             <ul class="navbar-nav" >
                 <li class="nav-item" >
-                    <a class="nav-link" href="#">WYLOGUJ SIĘ</a>
+                    <a class="nav-link" href="?page=logout">WYLOGUJ SIĘ</a>
                 </li>
             </ul>
         </nav>
