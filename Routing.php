@@ -5,6 +5,8 @@ require_once 'Controllers\PlanController.php';
 require_once 'Controllers\ChoiceController.php';
 require_once 'Controllers\RegisterController.php';
 require_once 'Controllers\MainController.php';
+require_once 'Controllers\InformationController.php';
+
 
 class Routing {
     private $routes = [];
@@ -22,6 +24,11 @@ class Routing {
                 'action' => 'registration'
             ],
 
+            'verifyregistration' => [
+                'controller' => 'RegistrationController',
+                'action' => 'verifyregistration'
+            ],
+
             'main' => [
                 'controller' => 'MainController',
                 'action' => 'main'
@@ -37,16 +44,26 @@ class Routing {
                 'action' => 'choice'
             ],
 
+            'verifylesson' => [
+                'controller' => 'ChoiceController',
+                'action' => 'verifylesson'
+            ],
+
             'logout' => [
                 'controller' => 'LoginController',
                 'action' => 'logout'
+            ],
+
+            'information' => [
+                'controller' => 'InformationController',
+                'action' => 'information'
             ]
         ];
     }
 
     public function run()
     {
-        $page = isset($_GET['page']) ? $_GET['page'] : 'index';
+        $page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
         if (isset($this->routes[$page])) {
             $controller = $this->routes[$page]['controller'];

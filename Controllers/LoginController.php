@@ -41,4 +41,10 @@ class LoginController extends AppController {
 
         $this->render('login', ['messages' => ['Zostałeś wylogowany!']]);
     }
+
+    public function successregistration()
+    {
+        $this->render('login', ['messages' => ['Rejestracja przebiegła pomyslnie! Zaloguj się!']]);
+    }
+
 }

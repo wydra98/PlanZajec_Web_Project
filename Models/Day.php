@@ -10,9 +10,9 @@ class Day {
         $this->name = $name;
     }
     
-    public function addLesson(Lesson lesson)
+    public function addLesson(Lesson $lesson)
     {
-        lessonCollection[] = lesson;
+        lessonCollection[] = $lesson;
     }
 
     public function getName()

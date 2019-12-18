@@ -8,15 +8,24 @@
 <body>
     <div class="container">
         <label id="registration">REJESTRACJA</label>
-        <form> 
+        <div class="messages">
+                <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                ?>
+        </div>
+        <form action="?page=verifyregistration" method="POST"> 
             <label for="first">E-mail:</label>
-            <input  type="text" id="first">
+            <input name="email" type="text" id="first">
             <label for="second">Nick:</label>
-            <input type="text" id="second">
+            <input name="nick" type="text" id="second">
             <label for="third">Hasło:</label>
-            <input type="password" id="third">
+            <input name="password1" type="password" id="third">
             <label for="fourth">Powtórz hasło:</label>
-            <input type="password" id="fourth">
+            <input name="password2" type="password" id="fourth">
             <button id="register" type="submit">Zarejestruj</button>
         </form>
     </div>

@@ -10,10 +10,10 @@ class Lesson {
 
     public function __construct(
         string $name,
-        string $startHour,
-        string $endHour,
-        string $startMinute,
-        string $endMinute,
+        $startHour,
+        $endHour,
+        $startMinute,
+        $endMinute,
         string $color
     ) {
         $this->name = $name;

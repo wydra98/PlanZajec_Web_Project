@@ -24,7 +24,7 @@
             <input name="password" type="password" id="second">
             <button id="login" type="submit">Zaloguj</button>
         </form>
-        <button id="register" type="submit">Zarejestruj</button>
+        <a href="?page=registration" id="register">Zarejestruj</a>
     </div>
 </body>
 </html>

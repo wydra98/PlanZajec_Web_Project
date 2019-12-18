@@ -16,6 +16,11 @@ class User {
         $this->nick = $nick;
     }
 
+    public function addWeek(Week $week)
+    {
+        $weekArray[] = week;
+    }
+
     public function getEmail(): string 
     {
         return $this->email;
@@ -27,11 +32,6 @@ class User {
     }
 
     public function getNick()
-    {
-        return $this->nick;
-    }
-
-    public function addWeek()
     {
         return $this->nick;
     }
