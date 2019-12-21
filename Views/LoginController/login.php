@@ -19,7 +19,7 @@
                 ?>
             </div>
             <label for="first">Email lub nick:</label>
-            <input name="email" type="text" id="first">
+            <input name="emailNick" type="text" id="first">
             <label for="second">Hasło:</label>
             <input name="password" type="password" id="second">
             <button id="login" type="submit">Zaloguj</button>

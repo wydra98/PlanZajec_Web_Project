@@ -1,30 +1,28 @@
 <?php
 
 require_once 'AppController.php';
-require_once __DIR__.'//..//Models//User.php';
+require_once __DIR__.'//..//Repository//UserRepository.php';
 session_start();
 
 class LoginController extends AppController {
 
     public function login()
     {   
-        $user = new User('johnny@pk.edu.pl', 'admin', 'Johnny');
+        $userRepository = new UserRepository();
 
         if ($this->isPost()) {
-            $email = $_POST['email'];
+            $emailNick = $_POST['emailNick'];
             $password = $_POST['password'];
 
-            if ($user->getEmail() !== $email) {
-                $this->render('login', ['messages' => ['Użytkownik o podanym mailu/nicku nie istnieje!']]);
+            if (strlen($emailNick)==0 || strlen($password)==0) {
+                $this->render('login', ['messages' => ['Uzupełnij wszystkie dane!']]);
                 return;
             }
-
-            if ($user->getPassword() !== $password) {
-                $this->render('login', ['messages' => ['Złe hasło!']]);
+           
+            if (!$userRepository->checkData($emailNick,$password)) {
+                $this->render('login', ['messages' => ['Użytkownik o podanych danych nie istnieje!']]);
                 return;
             }
-
-            $_SESSION["id"] = $user->getEmail();
 
             $url = "http://$_SERVER[HTTP_HOST]/";
             header("Location: {$url}?page=main");

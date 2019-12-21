@@ -8,4 +8,10 @@ class PlanController extends AppController {
     {   
         $this->render('plan');
     }
+
+    public function addNewLesson()
+    {
+        // tu by pasowało zrobic obiekt nowej klasy chyba         
+        $this->render('plan');
+    }
 }

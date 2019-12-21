@@ -1,35 +1,31 @@
 <?php
 
-require_once "config.php";
 
 class Database {
+    private $host;
+    private $dbname;
     private $username;
     private $password;
-    private $host;
-    private $database;
-
-    public function __construct()
-    {
-        $this->username = USERNAME;
-        $this->password = PASSWORD;
-        $this->host = HOST;
-        $this->database = DATABASE;
+    
+    public function __construct(){
+        $this->host = "localhost";
+        $this->dbname="timetable";
+        $this->username ="root";
+        $this->password = "";
     }
 
-    public function connect()
-    {
+    public function connect(){
         try {
             $conn = new PDO(
-                "mysql:host=$this->host;dbname=$this->database", 
-                $this->username,
-                $this->password
+            "mysql:host=$this->host;dbname=$this->dbname", $this->username,$this->password
             );
-           
-            // set the PDO error mode to exception
+
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn;
         }
         catch(PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
     }
 }
+?>

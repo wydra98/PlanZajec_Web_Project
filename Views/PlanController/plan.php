@@ -9,6 +9,15 @@
 </head>
 <body>
 <?php include(dirname(__DIR__).'\NavbarControllers\navbar.php'); ?>    
+    <div class="messages">
+            <?php
+                if(isset($messages)){
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                }
+            ?>
+    </div>
     <div class="container">
         <div class="row seven-cols">
     <?php

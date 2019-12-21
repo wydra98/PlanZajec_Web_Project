@@ -9,7 +9,13 @@
 </head>
 <body>
 <?php include(dirname(__DIR__).'\NavbarControllers\navbar.php'); ?>    
-    <div class="messages">
+   
+    <form action="?page=verifylesson" method="POST">
+    <div class="container"> 
+        <div class="row">
+        
+            <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4" 
+            style="color: rgb(120, 23, 53); margin-top:10px; margin-bottom:10px;">
                 <?php
                     if(isset($messages)){
                         foreach($messages as $message) {
@@ -17,10 +23,8 @@
                         }
                     }
                 ?>
-        </div>
-    <form action="?page=verifylesson" method="POST">
-    <div class="container">
-        <div class="row">
+            </div>
+            
             <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                     <label for="sel1">Wybierz dzień:</label>
                     <select name="dayName" class="form-control" id="sel1">
@@ -46,8 +50,8 @@
             </div>
             <div class="col-8 offset-2 col-md-4" style="display:flex; flex-direction: column;">
                 <label style="color:red; margin-bottom:-5px;  margin-top:30px">Zakończenie:</label>
-                <label name="endHour" for="usr">Godzina:</label>
-                <input type="text" class="form-control" id="usr">
+                <label for="usr">Godzina:</label>
+                <input name="endHour" type="text" class="form-control" id="usr">
                 <label for="usr">Minuta:</label>
                 <input name="endMinute" type="text" class="form-control" id="usr">
             </div>
