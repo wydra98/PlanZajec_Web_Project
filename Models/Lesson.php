@@ -7,6 +7,7 @@ class Lesson {
     private $start_minute;
     private $end_minute;
     private $color;
+    private $week_number;
 
     public function __construct(
         string $name,
@@ -14,7 +15,8 @@ class Lesson {
         $endHour,
         $startMinute,
         $endMinute,
-        string $color
+        string $color,
+        $week_number
     ) {
         $this->name = $name;
         $this->$startHour = $startHour;
@@ -22,35 +24,7 @@ class Lesson {
         $this->$startMinute = $startMinute;
         $this->$endMinute = $endMinute;
         $this->$color = $color;
+        $this->$week_number = $week_number;
     }
 
-    public function getName()
-    {
-        return $this->$name;
-    }
-
-    public function getName()
-    {
-        return $this->$startHour;
-    }
-
-    public function getendHour()
-    {
-        return $this->$endHour;
-    }
-
-    public function getstartMinute()
-    {
-        return $this->$startMinute;
-    }
-
-    public function getendMinute()
-    {
-        return $this->$endMinute;
-    }
-
-    public function getColor()
-    {
-        return $this->$color;
-    }
 }

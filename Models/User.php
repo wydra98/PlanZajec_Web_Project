@@ -1,38 +1,26 @@
 <?php
+require_once 'Week.php';
 
 class User {
-    private $email;
-    private $password;
-    private $nick;
+    private $userId;
     private $weekArray;
 
     public function __construct(
-        string $email,
-        string $password,
-        string $nick
+        string $id
     ) {
-        $this->email = $email;
-        $this->password = $password;
-        $this->nick = $nick;
+        $this->id = $id;
     }
 
     public function addWeek(Week $week)
     {
-        $weekArray[] = week;
+        global $weekArray;
+        $weekArray[] = $week;
+        
     }
 
-    public function getEmail(): string 
+    public function getWeekArray($x)
     {
-        return $this->email;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function getNick()
-    {
-        return $this->nick;
+        global $weekArray;
+        return $weekArray[$x];
     }
 }
