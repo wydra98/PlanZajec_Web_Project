@@ -2,25 +2,22 @@
 require_once 'Week.php';
 
 class User {
-    private $userId;
     private $weekArray;
-
-    public function __construct(
-        string $id
-    ) {
-        $this->id = $id;
-    }
 
     public function addWeek(Week $week)
     {
         global $weekArray;
-        $weekArray[] = $week;
-        
+        $weekArray[] = $week;  
     }
 
-    public function getWeekArray($x)
+    public function getWeekArray()
     {
         global $weekArray;
-        return $weekArray[$x];
+        return $weekArray;
+    }
+
+    public function hej()
+    {
+        echo'hej';
     }
 }

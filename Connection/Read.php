@@ -1,16 +1,15 @@
 <?php
-
 require_once "Connection.php";
 require_once __DIR__.'//..//Models//User.php';
 require_once __DIR__.'//..//Models//Week.php';
 require_once __DIR__.'//..//Models//Lesson.php';
 require_once __DIR__.'//..//Models//Day.php';
+require_once __DIR__.'//..//Models//Singleton.php';
 
 class Read extends Connection {
     
     public function readOwner(){
-        $_SESSION['user'] = new User($_SESSION['userId']);
-
+        $user = new User();
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM owner WHERE user_id = :user_id');
         $stmt->bindParam(':user_id', $_SESSION["userId"], PDO::PARAM_STR);
@@ -19,12 +18,11 @@ class Read extends Connection {
 
         $_SESSION['users'] = count($users);
 
-        if($_SESSION['users']>0){
             for($x=0;$x<count($users);$x++){
                 $_SESSION['week_id'] = $users[$x]['week_id'];
                 $_SESSION['status'] = $users[$x]['status']; 
                 $this->readWeekName();
-                $week  = new Week($_SESSION['week_name']);
+                $week  = new Week($_SESSION['week_name'],$x);
 
                 $this->readLessonsMonday();
                 $this->addLessons('Monday',$week);
@@ -47,9 +45,11 @@ class Read extends Connection {
                 $this->readLessonsSunday();
                 $this->addLessons('Sunday',$week);
              
-                $_SESSION['user']->addWeek($week);
+                $user ->addWeek($week);
             }
-        }
+            Singleton::setInstance($user);
+            return $user;
+            
     } 
 
     public function readWeekName(){

@@ -3,6 +3,11 @@
 require_once 'AppController.php';
 require_once __DIR__.'//..//Connection//LoginRegister.php';
 require_once __DIR__.'//..//Connection//Read.php';
+require_once __DIR__.'//..//Models//User.php';
+require_once __DIR__.'//..//Models//Week.php';
+require_once __DIR__.'//..//Models//Lesson.php';
+require_once __DIR__.'//..//Models//Day.php';
+require_once __DIR__.'//..//Models//Singleton.php';
 
 
 class LoginController extends AppController {
@@ -25,14 +30,15 @@ class LoginController extends AppController {
                 return;
             }
 
-            //$read = new Read();
-            //$read -> readUser(); 
+            $read = new Read();
+            $user = $read->readOwner();
+
+            $_SESSION['user']=serialize($user);
             
             $url = "http://$_SERVER[HTTP_HOST]/";
             header("Location: {$url}?page=main");
             return;
         }
-
         $this->render('login');
     }
 

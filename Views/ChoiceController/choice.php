@@ -28,13 +28,13 @@
             <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                     <label for="sel1">Wybierz dzień:</label>
                     <select name="dayName" class="form-control" id="sel1">
-                        <option value="poniedzialek">Poniedziałek</option>
-                        <option value="wtorek">Wtorek</option>
-                        <option value="środa">Środa</option>
-                        <option value="czwartek">Czwartek</option>
-                        <option value="piątek">Piątek</option>
-                        <option value="sobota">Sobota</option>
-                        <option value="niedziela">Niedziela</option>
+                        <option value="MONDAY">Poniedziałek</option>
+                        <option value="TUESDAY">Wtorek</option>
+                        <option value="WEDNESDAY">Środa</option>
+                        <option value="THURSDAY">Czwartek</option>
+                        <option value="FRIDAY">Piątek</option>
+                        <option value="SATURDAY">Sobota</option>
+                        <option value="SUNDAY">Niedziela</option>
                     </select>
             </div>
             <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">

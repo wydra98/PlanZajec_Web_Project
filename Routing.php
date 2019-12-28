@@ -57,6 +57,11 @@ class Routing {
             'information' => [
                 'controller' => 'InformationController',
                 'action' => 'information'
+            ],
+
+            'verifyNewPlan' => [
+                'controller' => 'MainController',
+                'action' => 'verifyNewPlan'
             ]
         ];
     }

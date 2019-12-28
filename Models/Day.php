@@ -1,8 +1,8 @@
 <?php
 
 class Day {
-    public $name;
-    public $lessonCollection;
+    private $name;
+    private $lessonCollection;
 
     public function __construct(
         string $name
@@ -16,5 +16,10 @@ class Day {
         $lessonCollection[] = $lesson;
     }
 
+    public function getLessonCollection($x)
+    {
+        global $lessonCollection;
+        return $lessonCollection($x);
+    }
 
 }

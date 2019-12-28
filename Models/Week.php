@@ -2,6 +2,7 @@
 require_once 'Day.php';
 
 class Week {
+    private $id;
     private $name;
     private $monday;
     private $tuesday;
@@ -12,8 +13,10 @@ class Week {
     private $sunday;
 
     public function __construct(
-        string $name
+        string $name,
+        string $id
     ) {
+        $this->id = $id;
         $this->name = $name;
         $this->monday = new Day("monday");
         $this->tuesday = new Day("tuesday");
@@ -22,6 +25,10 @@ class Week {
         $this->friday = new Day("friday");
         $this->saturday = new Day("saturday");
         $this->sunday = new Day("sunday");
+    }
+
+    public function getId(){    
+        return $this->id;
     }
 
     public function getName(){    

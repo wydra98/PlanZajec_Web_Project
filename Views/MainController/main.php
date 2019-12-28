@@ -11,29 +11,48 @@
 <?php include(dirname(__DIR__).'\NavbarControllers\navbarprimary.php'); ?>    
     <div class="container">
         <div class="row">
+
+        <div class="col-8 offset-2 col-md-6 offset-md-3" id = "messages">
+                <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                ?>
+            </div>
+
             <div class="col-12 col-md-6">
                 <a href="?page=information" class="btn btn-info btn-lg" role="button" style="background-color: #8E0000; border:3px solid rgb(58, 0, 0)"><label style="cursor:pointer">O APLIKACJI</label></a>
             </div>
 
             <div class="col-12 col-md-6">
-                <a href="?page=plan" class="btn btn-info btn-lg" role="button" style="background-color: #000066; border:3px solid rgb(0, 1, 58)"><label style="cursor:pointer">GENERUJ PLAN</label></a>
+            <label class="mainlabel" id="thelastone" style="background-color: #000066; border:3px solid rgb(0, 1, 58)">
+                <label class="labelhigh" style="margin-top:45px">GENERUJ NOWY PLAN</label>
+                <form  action="?page=verifyNewPlan" method="POST">
+                    <div class="form-group">
+                        <label for="u">Nazwa nowego planu:</label>
+                        <input name="namePlan" type="text" class="form-control" id="u" style="border:3px solid rgb(0, 1, 58)" >
+                    </div>
+                    <input id="confirm" type="submit" class="btn" value="Zatwierdź">
+                </form>
+            </label>
             </div>
 
             <div class="col-12 col-md-6">
                 <label class="mainlabel" id="thefirst"  style="background-color: #006213; border:3px solid rgb(0, 58, 0)">
                     <label class="labelhigh">WYBIERZ PLAN</label>
-                    <form>
+                    <form action="?page=plan" method="POST">
                         <div class="form-group">
                             <select class="form-control">
                                 <?php
-                                $size = 2;
-                                $name[]= "2016/2017";
-                                $name[]= "2017/2018";
-                                    for($x=0;$x<$size;$x++){
-                                        echo'<option>'.$name[$x].'</option>';}
+                                 $user = Singleton::getInstance();
+                                 //foreach($user->getWeekArray() as $week){
+                                    //echo'<option>'.$week->getName().'</option>';//}
+                                    echo'<option>hej</option>';
                                 ?>    
                             </select>
-                        <button id="confirm" type="submit" class="btn" href="?page=plan">Zatwierdź</button>
+                        <button id="confirm" type="submit" class="btn">Zatwierdź</button>
                     </div>
                 </form>
                 </label>
@@ -42,7 +61,7 @@
             <div class="col-12 col-md-6">
             <label class="mainlabel" id="thelastone" style="background-color: #3c0044; border:3px solid rgb(51, 0, 38)">
                 <label class="labelhigh" style="margin-top:0px">WCZYTAJ PLAN</label>
-                <form>
+                <form  action="?page=plan" method="POST">
                     <div class="form-group">
                         <label for="usr">Nick lub e-mail:</label>
                         <input type="text" class="form-control" id="usr">
@@ -51,7 +70,7 @@
                         <label for="usr">Nazwa planu:</label>
                         <input type="text" class="form-control" id="usr">
                     </div>
-                    <input id="confirm" type="submit" class="btn" value="Zatwierdź" href="?page=plan">
+                    <input id="confirm" type="submit" class="btn" value="Zatwierdź">
                 </form>
             </label>
             </div>

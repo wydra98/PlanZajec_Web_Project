@@ -10,3 +10,5 @@ class Connection {
         $this->database = new Database();
     }
 }
+
+

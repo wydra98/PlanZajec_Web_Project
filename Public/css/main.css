@@ -1,7 +1,7 @@
 
 .container {
     color: white;  
-    margin-top: 50px;
+    margin-top: 30px;
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -16,6 +16,7 @@
     border-radius:0px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom:0px;
 }
 
 .mainlabel,
@@ -59,6 +60,15 @@
     margin-top: 10px;
     font-size:20px;
     margin: auto;
+}
+
+#messages{
+    color: rgb(120, 23, 53); 
+    margin-top:0px; 
+    margin-bottom:30px; 
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
 }
 
 @media screen and (min-width: 992px) {
