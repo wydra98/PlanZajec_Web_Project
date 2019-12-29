@@ -2,12 +2,9 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'//..//Connection//LoginRegister.php';
-require_once __DIR__.'//..//Connection//Read.php';
-require_once __DIR__.'//..//Models//User.php';
-require_once __DIR__.'//..//Models//Week.php';
+require_once __DIR__.'//..//Connection//PlanConnection.php';
 require_once __DIR__.'//..//Models//Lesson.php';
-require_once __DIR__.'//..//Models//Day.php';
-require_once __DIR__.'//..//Models//Singleton.php';
+
 
 
 class LoginController extends AppController {
@@ -29,11 +26,6 @@ class LoginController extends AppController {
                 $this->render('login', ['messages' => ['Użytkownik o podanych danych nie istnieje!']]);
                 return;
             }
-
-            $read = new Read();
-            $user = $read->readOwner();
-
-            $_SESSION['user']=serialize($user);
             
             $url = "http://$_SERVER[HTTP_HOST]/";
             header("Location: {$url}?page=main");

@@ -1,8 +1,5 @@
 <?php
-
 require_once "Connection.php";
-require_once __DIR__.'//..//Models//User.php';
-session_start();
 
 class LoginRegister extends Connection {
 

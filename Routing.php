@@ -59,6 +59,16 @@ class Routing {
                 'action' => 'information'
             ],
 
+            'weekOne' => [
+                'controller' => 'PlanController',
+                'action' => 'weekOne'
+            ],
+
+            'weekTwo' => [
+                'controller' => 'PlanController',
+                'action' => 'weekTwo'
+            ],
+
             'verifyNewPlan' => [
                 'controller' => 'MainController',
                 'action' => 'verifyNewPlan'

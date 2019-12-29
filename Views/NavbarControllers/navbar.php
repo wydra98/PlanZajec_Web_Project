@@ -19,10 +19,10 @@
             <div class="collapse navbar-collapse navbar-right" id="menu">
                <ul class="navbar-nav ml-auto" >
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button">TYDZIEŃ</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">TYDZIEŃ</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Tydzień pierwszy</a>
-                            <a class="dropdown-item" href="#">Tydzień drugi</a>
+                            <a class="dropdown-item" href="?page=weekOne" method="POST">Tydzień pierwszy</a>
+                            <a class="dropdown-item" href="?page=weekTwo">Tydzień drugi</a>
                         </div>
                     </li>
                     <li class="nav-item" >
@@ -34,7 +34,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">WYLOGUJ</a>
+                        <a class="nav-link" href="?page=logout">WYLOGUJ</a>
                     </li>
                 </ul>
             </div>

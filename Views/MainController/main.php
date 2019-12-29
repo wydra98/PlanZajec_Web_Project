@@ -44,12 +44,10 @@
                     <label class="labelhigh">WYBIERZ PLAN</label>
                     <form action="?page=plan" method="POST">
                         <div class="form-group">
-                            <select class="form-control">
+                            <select name="id" class="form-control">
                                 <?php
-                                 $user = Singleton::getInstance();
-                                 //foreach($user->getWeekArray() as $week){
-                                    //echo'<option>'.$week->getName().'</option>';//}
-                                    echo'<option>hej</option>';
+                                 foreach($_SESSION['weeks'] as $week){
+                                    echo'<option value="'.$week->getId().'">'.$week->getName().'</option>';}
                                 ?>    
                             </select>
                         <button id="confirm" type="submit" class="btn">Zatwierdź</button>

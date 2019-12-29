@@ -1,25 +1,18 @@
 <?php
 
 require_once 'AppController.php';
-require_once __DIR__.'//..//Models//User.php';
-require_once __DIR__.'//..//Models//Week.php';
 require_once __DIR__.'//..//Models//Lesson.php';
-require_once __DIR__.'//..//Models//Day.php';
-require_once __DIR__.'//..//Models//Singleton.php';
+require_once __DIR__.'//..//Connection//MainConnection.php';
+
 
 
 class MainController extends AppController {
 
     public function main()
     {  
-        $user = unserialize($_SESSION['user']);
-        $user->hej();
-        if ($user->getWeekArray()) {
-        foreach($user->getWeekArray() as $week){
-            echo $week->getName();}}
-            else 
-            echo "dupa";
-        //$this->render('main');
+        $foo = new MainConnection();
+        $foo->readWeekName();
+        $this->render('main');
     }
 
     public function verifyNewPlan()
@@ -27,7 +20,7 @@ class MainController extends AppController {
         $namePlan = $_POST['namePlan']; 
         
         if (strlen($namePlan)==0) {
-            $this->render('main', ['messages' => [''.$user->getWeekArray(0)->getName().'Nie podano nazwy nowego planu!']]);
+            $this->render('main', ['messages' => ['Nie podano nazwy nowego planu!']]);
             return;
         }
 

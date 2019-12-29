@@ -45,6 +45,6 @@ class ChoiceController extends AppController {
         }
 
         $newLesson = new PlanController();
-        $newLesson->addNewLesson();
+       // $newLesson->addNewLesson();
     }
 }
