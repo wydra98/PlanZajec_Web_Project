@@ -44,6 +44,24 @@ class ChoiceController extends AppController {
             return;
         }
 
+        if($startHour>$endHour)
+        {
+            $this->render('choice', ['messages' => ['Godzina rozpoczęcia musi być równa lub mniejsza od godziny zakończenia!']]);
+            return;
+        }
+
+        if()
+        {
+            $this->render('choice', ['messages' => ['Godzina rozpoczęcia musi być równa lub mniejsza od godziny zakończenia!']]);
+            return;
+        }
+
+        if($startHour>$endHour)
+        {
+            $this->render('choice', ['messages' => ['Godzina rozpoczęcia musi być równa lub mniejsza od godziny zakończenia!']]);
+            return;
+        }
+
         $newLesson = new PlanController();
        // $newLesson->addNewLesson();
     }

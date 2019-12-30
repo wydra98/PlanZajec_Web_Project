@@ -103,13 +103,13 @@ class MainConnection extends Connection {
         return $flag;
     }
 
-    public function checkPlan(string $planName)
+    public function checkPlan(string $sharePlanName)
      {  
         $stmt = $this->database->connect()->prepare('
         SELECT w.week_id FROM week w 
         join owner o on o.week_id=w.week_id
         WHERE w.week_name = :week_name AND o.user_id = :user_id');
-        $stmt->bindParam(':week_name', $planName, PDO::PARAM_STR);
+        $stmt->bindParam(':week_name', $sharePlanName, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $_SESSION['shareUser'] , PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -140,14 +140,10 @@ class MainConnection extends Connection {
         return $flag;
     }
 
-    public function addShareWeek($planName){
-    
-        $planName = $planName.' - '.$_SESSION['shareUserNick'];
-        // msimy skopiować wszystko z lekcji gdzie week_id =
-
+    public function addShareWeek($sharePlanName){
         $stmt = $this->database->connect()->prepare('
         INSERT INTO `week` (week_id,week_name) VALUES(NULL,:week_name)');
-        $stmt->bindParam(':week_name', $planName, PDO::PARAM_STR);
+        $stmt->bindParam(':week_name', $sharePlanName, PDO::PARAM_STR);
         $stmt->execute();
 
         $stmt = $this->database->connect()->prepare('
@@ -165,33 +161,41 @@ class MainConnection extends Connection {
         foreach($lessons as $lesson)
         {
             $stmt = $this->database->connect()->prepare('
-            INSERT INTO `lesson` (lesson_id,day_id,week_id,lesson_name_id,hour_id,minute_id,color,week_number) 
-            VALUES(NULL,:day_id,:week_id,:lesson_name_id,:hour_id,:minute_id,:color,:week_number)');
-            $stmt->bindParam(':day_id', $lessons[''], PDO::PARAM_STR);
-            $stmt->bindParam(':week_id', $lessons[''], PDO::PARAM_STR);
-            $stmt->bindParam(':lesson_name_id', $lessons[''], PDO::PARAM_STR);
-            $stmt->bindParam(':hour_id', $lessons[''], PDO::PARAM_STR);
-            $stmt->bindParam(':minute_id', $lessons[''], PDO::PARAM_STR);
-            $stmt->bindParam(':color', $lessons[''], PDO::PARAM_STR);
-            $stmt->bindParam(':week_number', $lessons[''], PDO::PARAM_STR);
+            INSERT INTO `lesson` (lesson_id,day_id,week_id,lesson_name_id,hour_id,minute_id,color_id,week_number) 
+            VALUES(NULL,:day_id,:week_id,:lesson_name_id,:hour_id,:minute_id,:color_id,:week_number)');
+            $stmt->bindParam(':day_id', $lesson['day_id'], PDO::PARAM_STR);
+            $stmt->bindParam(':week_id', $number['week_id'], PDO::PARAM_STR);
+            $stmt->bindParam(':lesson_name_id', $lesson['lesson_name_id'], PDO::PARAM_STR);
+            $stmt->bindParam(':hour_id', $lesson['hour_id'], PDO::PARAM_STR);
+            $stmt->bindParam(':minute_id', $lesson['minute_id'], PDO::PARAM_STR);
+            $stmt->bindParam(':color_id', $lesson['color_id'], PDO::PARAM_STR);
+            $stmt->bindParam(':week_number', $lesson['week_number'], PDO::PARAM_STR);
             $stmt->execute();
         }
 
         $stmt = $this->database->connect()->prepare('
-        INSERT INTO `week` (week_id,week_name) VALUES(NULL,:week_name)');
-        $stmt->bindParam(':week_name', $planName, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $stmt = $this->database->connect()->prepare('
-        SELECT week_id FROM week WHERE week_id = (
-        SELECT MAX(week_id) FROM week)');
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $stmt = $this->database->connect()->prepare('
         INSERT INTO `owner` (owner_id,user_id,week_id,status) VALUES(NULL,:user_id,:week_id,"no")');
         $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
-        $stmt->bindParam(':week_id', $user['week_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':week_id', $number['week_id'], PDO::PARAM_STR);
         $stmt->execute();
+
     } 
+
+    public function removeWeek(){
+
+        $stmt = $this->database->connect()->prepare('
+        DELETE FROM lesson WHERE week_id = :week_id');
+        $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+        $stmt->execute();
+
+        $stmt = $this->database->connect()->prepare('
+        DELETE FROM owner WHERE week_id = :week_id');
+        $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+        $stmt->execute();
+
+        $stmt = $this->database->connect()->prepare('
+        DELETE FROM week WHERE week_id = :week_id');
+        $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+        $stmt->execute();
+    }
 }

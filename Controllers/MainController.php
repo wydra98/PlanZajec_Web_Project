@@ -3,6 +3,7 @@
 require_once 'AppController.php';
 require_once __DIR__.'//..//Models//Lesson.php';
 require_once __DIR__.'//..//Connection//MainConnection.php';
+require_once __DIR__.'//..//Connection//PlanConnection.php';
 
 class MainController extends AppController {
 
@@ -47,10 +48,11 @@ class MainController extends AppController {
     public function verifySharePlan()
     {
         $nickMail = $_POST['nickMail'];
-        $planName = $_POST['planName'];
+        $sharePlanName = $_POST['sharePlanName'];
+        $newPlanName = $_POST['newPlanName'];
         $foo = new MainConnection();
 
-        if (strlen($nickMail)==0 || strlen($planName)==0) {
+        if (strlen($nickMail)==0 || strlen($sharePlanName)==0 || strlen($newPlanName)==0) {
             $this->render('main', ['messages' => ['Uzupełnij wszystkie dane!']]);
             return;
         }
@@ -60,12 +62,17 @@ class MainController extends AppController {
             return;
         }
 
+        if ( $foo->check($newPlanName)) {
+            $this->render('main', ['messages' => ['Już posiadasz plan o takiej nazwie!']]);
+            return;
+        }
+
         if (!$foo->checkNickMail($nickMail)) {
             $this->render('main', ['messages' => ['Użytkownik o podanych danych nie istnieje!']]);
             return;
         }
 
-        if (!$foo->checkPlan($planName)) {
+        if (!$foo->checkPlan($sharePlanName)) {
             $this->render('main', ['messages' => ['Podany użytkownik nie ma takiego planu!']]);
             return;
         }
@@ -75,10 +82,24 @@ class MainController extends AppController {
             return;
         }
 
-        $foo->addShareWeek($planName);
-        //$foo->readWeekName();
+        $foo->addShareWeek($newPlanName);
+        $foo->readWeekName();
         $this->render('main', ['messages' => ['Dodano udostępniony plan!']]);
         return;
+    }
 
+    public function delete()
+    {
+        $foo = new MainConnection();
+        $foo->removeWeek();
+        $foo->readWeekName();
+        $this->render('main', ['messages' => ['Usunięto plan!']]);
+        return;
+    }
+
+    public function emptyPlans()
+    {
+        $this->render('main', ['messages' => ['Nie masz żadnego planu!']]);
+        return;
     }
 }

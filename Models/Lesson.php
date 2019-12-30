@@ -18,8 +18,9 @@ class Lesson {
         $startMinute,
         $endMinute,
         string $color,
+        string $borderColor,
         $weekNumber,
-        $dayId
+        string $day
     ) {
         $this->name = $name;
         $this->startHour = $startHour;
@@ -27,8 +28,9 @@ class Lesson {
         $this->startMinute = $startMinute;
         $this->endMinute = $endMinute;
         $this->color = $color;
+        $this->borderColor = $borderColor;
         $this->weekNumber = $weekNumber;
-        $this->dayId = $dayId;
+        $this->day = $day;
     }
 
     public function getName()
@@ -61,6 +63,11 @@ class Lesson {
         return $this->color;
     }
 
+    public function getBorderColor()
+    {
+        return $this->borderColor;
+    }
+
     public function getWeekNumber()
     {
         return $this->weekNumber;
@@ -68,7 +75,7 @@ class Lesson {
 
     public function getDay()
     {
-        return $this->dayId;
+        return $this->day;
     }
 
 }

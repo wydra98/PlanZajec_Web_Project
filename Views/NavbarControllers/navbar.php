@@ -34,7 +34,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=logout">WYLOGUJ</a>
+                        <a class="nav-link" href="?page=delete">USUŃ PLAN</a>
                     </li>
                 </ul>
             </div>

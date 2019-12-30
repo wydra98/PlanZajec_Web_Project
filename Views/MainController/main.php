@@ -45,10 +45,10 @@
 
             <div class="col-12 col-md-6">
             <label class="mainlabel" id="thelastone" style="background-color: #000066; border:3px solid rgb(0, 1, 58)">
-                <label class="labelhigh" style="margin-top:45px">DODAJ NOWY PLAN</label>
+                <label class="labelhigh" style="margin-top:70px">DODAJ NOWY PLAN</label>
                 <form  action="?page=verifyNewPlan" method="POST">
                     <div class="form-group">
-                        <label for="u">Nazwa nowego planu:</label>
+                        <label for="u" style="margin-bottom:5px;">Nazwa nowego planu:</label>
                         <input name="namePlan" type="text" class="form-control" id="u" style="border:3px solid rgb(0, 1, 58)" >
                     </div>
                     <input id="confirm" type="submit" class="btn" value="Zatwierdź">
@@ -58,15 +58,19 @@
 
             <div class="col-12 col-md-6">
             <label class="mainlabel" id="thelastone" style="background-color: #3c0044; border:3px solid rgb(51, 0, 38)">
-                <label class="labelhigh" style="margin-top:0px">UDOSTĘPNIONY PLAN</label>
+                <label class="labelhigh" style="margin-top:0px">DODAJ UDOSTĘPNIONY PLAN</label>
                 <form  action="?page=verifySharePlan" method="POST">
                     <div class="form-group">
-                        <label for="usr">Nick lub e-mail:</label>
+                        <label for="usr">Nick lub e-mail udostępniajacego:</label>
                         <input name="nickMail" type="text" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
-                        <label for="usr">Nazwa planu:</label>
-                        <input name="planName" type="text" class="form-control" id="usr">
+                        <label for="usr">Nazwa udostępnionego planu:</label>
+                        <input name="sharePlanName" type="text" class="form-control" id="usr">
+                    </div>
+                    <div class="form-group">
+                        <label for="usr">Nowa nazwa planu:</label>
+                        <input name="newPlanName" type="text" class="form-control" id="usr">
                     </div>
                     <input id="confirm" type="submit" class="btn" value="Zatwierdź">
                 </form>

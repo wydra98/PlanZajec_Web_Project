@@ -7,18 +7,19 @@ class PlanController extends AppController {
 
     public function plan()
     {   
-        $_SESSION['chooseWeek']=$_POST['id'];
-        $_SESSION['weekNumber']=1;
-        $plan= new PlanConnection();
-        $plan->read();
-        $this->render('plan');
-    }
-
-    public function newPlan()
-    {   
-        $_SESSION['weekNumber']=1;
-        $_SESSION['lessons'] = array();
-        $this->render('plan');
+        if(isset($_POST['id']))
+        {
+            $_SESSION['chooseWeek']=$_POST['id'];
+            $_SESSION['weekNumber']=1;
+            $plan= new PlanConnection();
+            $plan->read();
+            $this->render('plan');
+        }
+            
+        else{
+            $foo = new MainController();
+            $foo -> emptyPlans();
+        }
     }
 
     public function weekOne()

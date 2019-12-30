@@ -40,11 +40,6 @@ class Routing {
                 'action' => 'plan'
             ],
 
-            'newPlan' => [
-                'controller' => 'PlanController',
-                'action' => 'newPlan'
-            ],
-
             'choice' => [
                 'controller' => 'ChoiceController',
                 'action' => 'choice'
@@ -58,6 +53,11 @@ class Routing {
             'logout' => [
                 'controller' => 'LoginController',
                 'action' => 'logout'
+            ],
+
+            'delete' => [
+                'controller' => 'MainController',
+                'action' => 'delete'
             ],
 
             'information' => [
