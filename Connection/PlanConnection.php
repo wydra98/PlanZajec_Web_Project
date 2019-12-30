@@ -142,17 +142,15 @@ class PlanConnection extends Connection {
     }
 
     public function checkLessons($users){
-        if($_SESSION['users']>0){
-            foreach($users as $user){
-                $_SESSION['lesson_id'] = $user['lesson_id'];
-                $_SESSION['color']= $user['color'];
-                $_SESSION['week_number'] = $user['week_number'];
-                $_SESSION['day_id'] = $user['day_id'];
-                $this->readNameLesson();
-                $this->readHours();
-                $this->readMinutes();
-                $this->addLessons();
-            }
+        foreach($users as $user){
+            $_SESSION['lesson_id'] = $user['lesson_id'];
+            $_SESSION['color']= $user['color'];
+            $_SESSION['week_number'] = $user['week_number'];
+            $_SESSION['day_id'] = $user['day_id'];
+            $this->readNameLesson();
+            $this->readHours();
+            $this->readMinutes();
+            $this->addLessons();
         }
     }
 

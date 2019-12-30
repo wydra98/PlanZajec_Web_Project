@@ -3,7 +3,7 @@
     <header >
         <nav class="navbar bg-light navbar-light" style="font-weight: bold;
     font-family: 'Quicksand', sans-serif;">
-            <img src="../Public/img/Repeat Grid 3.png" width="130" height="50" style="margin-top: -22px">
+           <a href ="?page=main" ><img src="../Public/img/Repeat Grid 3.png" width="130" height="50" style="margin-top: -22px"></a>
 
             <ul class="navbar-nav" >
                 <li class="nav-item" >

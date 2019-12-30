@@ -2,7 +2,7 @@
 
 require_once 'AppController.php';
 require_once 'LoginController.php';
-require_once __DIR__.'//..//Connection//LoginRegister.php';
+require_once __DIR__.'//..//Connection//RegistrationConnection.php';
 
 class RegistrationController extends AppController {
 
@@ -19,7 +19,7 @@ class RegistrationController extends AppController {
             $password2 = $_POST['password2'];
             $emailB = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-            $loginRegister = new LoginRegister();
+            $loginRegister = new RegisterConnection();
 
             if (strlen($email)==0 || strlen($nick)==0 || strlen($password1)==0 || strlen($password2)==0) {
                 $this->render('registration', ['messages' => ['Uzupełnij wszystkie dane!']]);
@@ -62,7 +62,7 @@ class RegistrationController extends AppController {
                 return;
             }
             $hashPassword= password_hash($password1,PASSWORD_DEFAULT);
-            $loginRegister->addNewUser($email,$nick,$hashPassword);
+            $register->addNewUser($email,$nick,$hashPassword);
             
             $login = new LoginController();
             $login->successregistration();

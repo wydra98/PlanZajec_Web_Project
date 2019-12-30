@@ -22,15 +22,13 @@
         <div class="row seven-cols">
     <?php
 
-    echo count($_SESSION['lessons']);
-
     echo'<div class="col-md-3 col-lg-1">
             <div class="buttonstart"><label class="labelday">Poniedziałek</label></div>';
         if(count($_SESSION['lessons'])>0)
         {   $flag = false; 
             foreach($_SESSION['lessons'] as $lesson)
             {
-                //if($lesson->/getDay() == 1){
+                if($lesson->getDay() == 1 && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
                     if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
                     else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
                     else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
@@ -41,7 +39,7 @@
                     <label class="labelnames">'.$lesson->getName().'</label>
                     <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
                     $flag = true;
-                //}
+                }
             }
             if($flag != true)
             echo'<label class="labelempty">Brak lekcji!</label>';
@@ -55,7 +53,7 @@
         {   $flag = false; 
             foreach($_SESSION['lessons'] as $lesson)
             {
-                if($lesson->getDay() == 2){
+                if($lesson->getDay() == 2 && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
                     if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
                     else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
                     else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
@@ -80,7 +78,7 @@
         {   $flag = false; 
             foreach($_SESSION['lessons'] as $lesson)
             {
-                if($lesson->getDay() == 3){
+                if($lesson->getDay() == 3 && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
                     if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
                     else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
                     else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
@@ -105,7 +103,7 @@
         {   $flag = false; 
             foreach($_SESSION['lessons'] as $lesson)
             {
-                if($lesson->getDay() == 4){
+                if($lesson->getDay() == 4 && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
                     if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
                     else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
                     else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
@@ -130,7 +128,7 @@
             {   $flag = false; 
                 foreach($_SESSION['lessons'] as $lesson)
                 {
-                    if($lesson->getDay() == 5){
+                    if($lesson->getDay() == 5 && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
                         if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
                         else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
                         else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
@@ -155,7 +153,7 @@
         {   $flag = false; 
             foreach($_SESSION['lessons'] as $lesson)
             {
-                if($lesson->getDay() == 6){
+                if($lesson->getDay() == 6 && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
                     if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
                     else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
                     else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
@@ -180,7 +178,7 @@
             {   $flag = false; 
                 foreach($_SESSION['lessons'] as $lesson)
                 {
-                    if($lesson->getDay() == 7){
+                    if($lesson->getDay() == 7 && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
                         if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
                         else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
                         else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
@@ -200,31 +198,6 @@
                 echo'<label class="labelempty">Brak lekcji!</label>';
         
     echo  '</div>';
-
-    function printer($day){ 
-        if(count($_SESSION['lessons'])>0)
-        {   $flag = false; 
-            foreach($_SESSION['lessons'] as $lesson)
-            {
-                if($lesson->getDay() == $day){
-                    if($lesson->getColor() == "#2E4053") $borderColor = "#002633";
-                    else  if($lesson->getColor() == "#3c0044") $borderColor = "rgb(51, 0, 38)";
-                    else if($lesson->getColor() == "#85144b") $borderColor = "#80002a";
-                    else if($lesson->getColor() == "#006213") $borderColor = "rgb(0, 58, 0)";
-                    else  $borderColor = "rgb(58, 0, 0)";
-    
-                    echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$borderColor.'">
-                    <label class="labelnames">'.$lesson->getName().'</label>
-                    <label class="labelhours">'.$lesson->getStartHour().'-'.$lesson->getEndHour().'</label></div>';
-                    $flag = true;
-                }
-            }
-            if($flag != true)
-            echo'<label class="labelempty">Brak lekcji!</label>';
-        }
-        else
-            echo'<label class="labelempty">Brak lekcji!</label>';
-    }   
 
     ?>
         </div>

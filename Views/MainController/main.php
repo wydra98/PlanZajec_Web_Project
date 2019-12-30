@@ -27,19 +27,6 @@
             </div>
 
             <div class="col-12 col-md-6">
-            <label class="mainlabel" id="thelastone" style="background-color: #000066; border:3px solid rgb(0, 1, 58)">
-                <label class="labelhigh" style="margin-top:45px">GENERUJ NOWY PLAN</label>
-                <form  action="?page=verifyNewPlan" method="POST">
-                    <div class="form-group">
-                        <label for="u">Nazwa nowego planu:</label>
-                        <input name="namePlan" type="text" class="form-control" id="u" style="border:3px solid rgb(0, 1, 58)" >
-                    </div>
-                    <input id="confirm" type="submit" class="btn" value="Zatwierdź">
-                </form>
-            </label>
-            </div>
-
-            <div class="col-12 col-md-6">
                 <label class="mainlabel" id="thefirst"  style="background-color: #006213; border:3px solid rgb(0, 58, 0)">
                     <label class="labelhigh">WYBIERZ PLAN</label>
                     <form action="?page=plan" method="POST">
@@ -57,16 +44,29 @@
             </div>
 
             <div class="col-12 col-md-6">
+            <label class="mainlabel" id="thelastone" style="background-color: #000066; border:3px solid rgb(0, 1, 58)">
+                <label class="labelhigh" style="margin-top:45px">DODAJ NOWY PLAN</label>
+                <form  action="?page=verifyNewPlan" method="POST">
+                    <div class="form-group">
+                        <label for="u">Nazwa nowego planu:</label>
+                        <input name="namePlan" type="text" class="form-control" id="u" style="border:3px solid rgb(0, 1, 58)" >
+                    </div>
+                    <input id="confirm" type="submit" class="btn" value="Zatwierdź">
+                </form>
+            </label>
+            </div>
+
+            <div class="col-12 col-md-6">
             <label class="mainlabel" id="thelastone" style="background-color: #3c0044; border:3px solid rgb(51, 0, 38)">
-                <label class="labelhigh" style="margin-top:0px">WCZYTAJ PLAN</label>
-                <form  action="?page=plan" method="POST">
+                <label class="labelhigh" style="margin-top:0px">UDOSTĘPNIONY PLAN</label>
+                <form  action="?page=verifySharePlan" method="POST">
                     <div class="form-group">
                         <label for="usr">Nick lub e-mail:</label>
-                        <input type="text" class="form-control" id="usr">
+                        <input name="nickMail" type="text" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="usr">Nazwa planu:</label>
-                        <input type="text" class="form-control" id="usr">
+                        <input name="planName" type="text" class="form-control" id="usr">
                     </div>
                     <input id="confirm" type="submit" class="btn" value="Zatwierdź">
                 </form>

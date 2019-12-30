@@ -11,7 +11,13 @@ class PlanController extends AppController {
         $_SESSION['weekNumber']=1;
         $plan= new PlanConnection();
         $plan->read();
-        var_dump($_SESSION['lessons']);
+        $this->render('plan');
+    }
+
+    public function newPlan()
+    {   
+        $_SESSION['weekNumber']=1;
+        $_SESSION['lessons'] = array();
         $this->render('plan');
     }
 
@@ -19,17 +25,12 @@ class PlanController extends AppController {
     {   
         $_SESSION['weekNumber']=1;
         $this->render('plan');
-        return;
     }
 
     public function weekTwo()
     {   
         $_SESSION['weekNumber']=2;
-        var_dump($_SESSION['lessons']);
-        foreach($_SESSION['lessons'] as $lesson)
-                echo $lesson->getName();
         $this->render('plan');
-        return;
     }
 
     function addNewLesson()

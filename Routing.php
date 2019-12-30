@@ -3,7 +3,7 @@
 require_once 'Controllers\LoginController.php';
 require_once 'Controllers\PlanController.php';
 require_once 'Controllers\ChoiceController.php';
-require_once 'Controllers\RegisterController.php';
+require_once 'Controllers\RegistrationController.php';
 require_once 'Controllers\MainController.php';
 require_once 'Controllers\InformationController.php';
 
@@ -31,12 +31,18 @@ class Routing {
 
             'main' => [
                 'controller' => 'MainController',
-                'action' => 'main'
+                'action' => 'mainFunction'
             ],
+
 
             'plan' => [
                 'controller' => 'PlanController',
                 'action' => 'plan'
+            ],
+
+            'newPlan' => [
+                'controller' => 'PlanController',
+                'action' => 'newPlan'
             ],
 
             'choice' => [
@@ -72,7 +78,13 @@ class Routing {
             'verifyNewPlan' => [
                 'controller' => 'MainController',
                 'action' => 'verifyNewPlan'
+            ],
+
+            'verifySharePlan' => [
+                'controller' => 'MainController',
+                'action' => 'verifySharePlan'
             ]
+
         ];
     }
 

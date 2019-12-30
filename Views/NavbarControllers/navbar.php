@@ -10,7 +10,7 @@
     <header style="font-weight: bold;
     font-family: 'Quicksand', sans-serif;">
         <nav class="navbar navbar-light bg-light navbar-expand-md">
-            <img src="../Public/img/Repeat Grid 3.png" width="130" height="50" style="margin-top: -22px">
+            <a href ="?page=main" ><img src="../Public/img/Repeat Grid 3.png" width="130" height="50" style="margin-top: -22px"></a>
         
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
 				<span class="navbar-toggler-icon" ></span>

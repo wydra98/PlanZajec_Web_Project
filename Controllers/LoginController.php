@@ -1,7 +1,7 @@
 <?php
 
 require_once 'AppController.php';
-require_once __DIR__.'//..//Connection//LoginRegister.php';
+require_once __DIR__.'//..//Connection//LoginConnection.php';
 require_once __DIR__.'//..//Connection//PlanConnection.php';
 require_once __DIR__.'//..//Models//Lesson.php';
 
@@ -11,7 +11,7 @@ class LoginController extends AppController {
 
     public function login()
     {   
-        $loginRegister = new LoginRegister();
+        $login = new LoginConnection();
 
         if ($this->isPost()) {
             $emailNick = $_POST['emailNick'];
@@ -22,7 +22,7 @@ class LoginController extends AppController {
                 return;
             }
            
-            if (!$loginRegister->checkData($emailNick,$password)) {
+            if (!$login->checkData($emailNick,$password)) {
                 $this->render('login', ['messages' => ['Użytkownik o podanych danych nie istnieje!']]);
                 return;
             }
