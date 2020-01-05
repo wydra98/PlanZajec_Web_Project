@@ -5,6 +5,7 @@
     <link rel="Stylesheet" href="..\Bootstrap\css\bootstrap.min.css" />
     <link rel="Stylesheet" type="text/css" href="..\..\Public\css\plan.css" />
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+    <script src = "..\..\JavaScript\plan.js"></script>
     <title>PlanZajec</title>
 </head>
 <body>
@@ -18,153 +19,156 @@
                 }
             ?>
     </div>
+
     <div class="container">
         <div class="row seven-cols">
-    <?php
 
-    echo'<div class="col-md-3 col-lg-1">
-            <div class="buttonstart"><label class="labelday">Poniedziałek</label></div>';
-        if(count($_SESSION['lessons'])>0)
-        {   $flag = false; 
-            foreach($_SESSION['lessons'] as $lesson)
-            {
-                if($lesson->getDay() == "MONDAY" && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
-            
-                    echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
-                    <label class="labelnames">'.$lesson->getName().'</label>
-                    <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
-                    $flag = true;
-                }
-            }
-            if($flag != true)
-            echo'<label class="labelempty">Brak lekcji!</label>';
-        }
-        else
-            echo'<label class="labelempty">Brak lekcji!</label>';
-              
-    echo'</div><div class="col-md-3 col-lg-1">
-            <div class="buttonstart"><label class="labelday">Wtorek</label></div>';
-            if(count($_SESSION['lessons'])>0)
-        {   $flag = false; 
-            foreach($_SESSION['lessons'] as $lesson)
-            {
-                if($lesson->getDay() == "TUESDAY" && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
-            
-                    echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
-                    <label class="labelnames">'.$lesson->getName().'</label>
-                    <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
-                    $flag = true;
-                }
-            }
-            if($flag != true)
-            echo'<label class="labelempty">Brak lekcji!</label>';
-        }
-        else
-            echo'<label class="labelempty">Brak lekcji!</label>';
+        <?php
+         require_once __DIR__.'//..//..//Conntrollers//PlanConntroller.php';
+         $remove = new PlanController();
 
-    echo '</div><div class="col-md-3 col-lg-1">
-            <div class="buttonstart"><label class="labelday">Środa</label></div>';
-            if(count($_SESSION['lessons'])>0)
-        {   $flag = false; 
-            foreach($_SESSION['lessons'] as $lesson)
-            {
-                if($lesson->getDay() == "WEDNESDAY" && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
-            
-                    echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
-                    <label class="labelnames">'.$lesson->getName().'</label>
-                    <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
-                    $flag = true;
-                }
-            }
-            if($flag != true)
-            echo'<label class="labelempty">Brak lekcji!</label>';
-        }
-        else
-            echo'<label class="labelempty">Brak lekcji!</label>';
-
-    echo  '</div><div class="col-md-3 col-lg-1">
-            <div class="buttonstart"><label class="labelday">Czwartek</label></div>';
-            if(count($_SESSION['lessons'])>0)
-        {   $flag = false; 
-            foreach($_SESSION['lessons'] as $lesson)
-            {
-                if($lesson->getDay() == "THURSDAY" && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
-            
-                    echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
-                    <label class="labelnames">'.$lesson->getName().'</label>
-                    <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
-                    $flag = true;
-                }
-            }
-            if($flag != true)
-            echo'<label class="labelempty">Brak lekcji!</label>';
-        }
-        else
-            echo'<label class="labelempty">Brak lekcji!</label>';
-
-     echo '</div><div class="col-md-3 col-lg-1">
-            <div class="buttonstart"><label class="labelday">Piątek</label></div>';
-            if(count($_SESSION['lessons'])>0)
-            {   $flag = false; 
-                foreach($_SESSION['lessons'] as $lesson)
-                {
-                    if($lesson->getDay() == "FRIDAY" && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
-            
-                        echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
-                        <label class="labelnames">'.$lesson->getName().'</label>
-                        <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
-                        $flag = true;
+            echo'<div class="col-md-3 col-lg-1">
+                    <div class="buttonstart"><label class="labelday">Poniedziałek</label></div>';
+                if(count($_SESSION['lessonsMONDAY'])>0)
+                {   $flag = false; 
+                    foreach($_SESSION['lessonsMONDAY'] as $lesson)
+                    {
+                        if($lesson->getWeekNumber() == $_SESSION['weekNumber']){
+                    
+                            echo '<div class="button" onclick="document.write('<?php $remove->removeLesson($lesson->getDay(),$lesson->getStartHour(),$lesson->getStartMinute(),$lesson->getWeekNumber()) ?>');"" 
+                            style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+                            <label class="labelnames">'.$lesson->getName().'</label>
+                            <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
+                            $flag = true;
+                        }
                     }
+                    if($flag != true)
+                    echo'<label class="labelempty">Brak lekcji!</label>';
                 }
-                if($flag != true)
-                echo'<label class="labelempty">Brak lekcji!</label>';
-            }
-            else
-                echo'<label class="labelempty">Brak lekcji!</label>';
-
-    echo  '</div><div class="col-md-3 col-lg-1">
-            <div class="buttonstart"><label class="labelday">Sobota</label></div>';
-            if(count($_SESSION['lessons'])>0)
-        {   $flag = false; 
-            foreach($_SESSION['lessons'] as $lesson)
-            {
-                if($lesson->getDay() == "SATURDAY" && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
-            
-                    echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
-                    <label class="labelnames">'.$lesson->getName().'</label>
-                    <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
-                    $flag = true;
-                }
-            }
-            if($flag != true)
-            echo'<label class="labelempty">Brak lekcji!</label>';
-        }
-        else
-            echo'<label class="labelempty">Brak lekcji!</label>';
-
-    echo  '</div><div class="col-md-3  col-lg-1">
-            <div class="buttonstart"><label class="labelday">Niedziela</label></div>';
-            if(count($_SESSION['lessons'])>0)
-            {   $flag = false; 
-                foreach($_SESSION['lessons'] as $lesson)
-                {
-                    if($lesson->getDay() == "SUNDAY" && $lesson->getWeekNumber() == $_SESSION['weekNumber']){
-            
-                        echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
-                        <label class="labelnames">'.$lesson->getName().'</label>
-                        <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
-                        $flag = true;
+                else
+                    echo'<label class="labelempty">Brak lekcji!</label>';
+                    
+            echo'</div><div class="col-md-3 col-lg-1">
+                    <div class="buttonstart"><label class="labelday">Wtorek</label></div>';
+                    if(count($_SESSION['lessonsTUESDAY'])>0)
+                {   $flag = false; 
+                    foreach($_SESSION['lessonsTUESDAY'] as $lesson)
+                    {
+                        if($lesson->getWeekNumber() == $_SESSION['weekNumber']){
+                    
+                            echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+                            <label class="labelnames">'.$lesson->getName().'</label>
+                            <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
+                            $flag = true;
+                        }
                     }
+                    if($flag != true)
+                    echo'<label class="labelempty">Brak lekcji!</label>';
                 }
-                if($flag != true)
-                echo'<label class="labelempty">Brak lekcji!</label>';
-            }
-            else
-                echo'<label class="labelempty">Brak lekcji!</label>';
-        
-    echo  '</div>';
+                else
+                    echo'<label class="labelempty">Brak lekcji!</label>';
 
-    ?>
+            echo '</div><div class="col-md-3 col-lg-1">
+                    <div class="buttonstart"><label class="labelday">Środa</label></div>';
+                    if(count($_SESSION['lessonsWEDNESDAY'])>0)
+                {   $flag = false; 
+                    foreach($_SESSION['lessonsWEDNESDAY'] as $lesson)
+                    {
+                        if($lesson->getWeekNumber() == $_SESSION['weekNumber']){
+                    
+                            echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+                            <label class="labelnames">'.$lesson->getName().'</label>
+                            <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
+                            $flag = true;
+                        }
+                    }
+                    if($flag != true)
+                    echo'<label class="labelempty">Brak lekcji!</label>';
+                }
+                else
+                    echo'<label class="labelempty">Brak lekcji!</label>';
+
+            echo  '</div><div class="col-md-3 col-lg-1">
+                    <div class="buttonstart"><label class="labelday">Czwartek</label></div>';
+                    if(count($_SESSION['lessonsTHURSDAY'])>0)
+                {   $flag = false; 
+                    foreach($_SESSION['lessonsTHURSDAY'] as $lesson)
+                    {
+                        if($lesson->getWeekNumber() == $_SESSION['weekNumber']){
+                    
+                            echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+                            <label class="labelnames">'.$lesson->getName().'</label>
+                            <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
+                            $flag = true;
+                        }
+                    }
+                    if($flag != true)
+                    echo'<label class="labelempty">Brak lekcji!</label>';
+                }
+                else
+                    echo'<label class="labelempty">Brak lekcji!</label>';
+
+            echo '</div><div class="col-md-3 col-lg-1">
+                    <div class="buttonstart"><label class="labelday">Piątek</label></div>';
+                    if(count($_SESSION['lessonsFRIDAY'])>0)
+                    {   $flag = false; 
+                        foreach($_SESSION['lessonsFRIDAY'] as $lesson)
+                        {
+                            if($lesson->getWeekNumber() == $_SESSION['weekNumber']){
+                    
+                                echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+                                <label class="labelnames">'.$lesson->getName().'</label>
+                                <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
+                                $flag = true;
+                            }
+                        }
+                        if($flag != true)
+                        echo'<label class="labelempty">Brak lekcji!</label>';
+                    }
+                    else
+                        echo'<label class="labelempty">Brak lekcji!</label>';
+
+            echo  '</div><div class="col-md-3 col-lg-1">
+                    <div class="buttonstart"><label class="labelday">Sobota</label></div>';
+                    if(count($_SESSION['lessonsSATURDAY'])>0)
+                {   $flag = false; 
+                    foreach($_SESSION['lessonsSATURDAY'] as $lesson)
+                    {
+                        if($lesson->getWeekNumber() == $_SESSION['weekNumber']){
+                    
+                            echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+                            <label class="labelnames">'.$lesson->getName().'</label>
+                            <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
+                            $flag = true;
+                        }
+                    }
+                    if($flag != true)
+                    echo'<label class="labelempty">Brak lekcji!</label>';
+                }
+                else
+                    echo'<label class="labelempty">Brak lekcji!</label>';
+
+            echo  '</div><div class="col-md-3  col-lg-1">
+                    <div class="buttonstart"><label class="labelday">Niedziela</label></div>';
+                    if(count($_SESSION['lessonsSUNDAY'])>0)
+                    {   $flag = false; 
+                        foreach($_SESSION['lessonsSUNDAY'] as $lesson)
+                        {
+                            if( $lesson->getWeekNumber() == $_SESSION['weekNumber']){
+                                echo '<div class="button" style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+                                <label class="labelnames">'.$lesson->getName().'</label>
+                                <label class="labelhours">'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label></div>';
+                                $flag = true;
+                            }
+                        }
+                        if($flag != true)
+                        echo'<label class="labelempty">Brak lekcji!</label>';
+                    }
+                    else
+                        echo'<label class="labelempty">Brak lekcji!</label>';
+            echo  '</div>';
+        ?>
+
         </div>
     </div>
 

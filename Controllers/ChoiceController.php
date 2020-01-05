@@ -2,6 +2,7 @@
 
 require_once 'AppController.php';
 require_once 'PlanController.php';
+require_once __DIR__.'//..//Connection//ChoiceConnection.php';
 
 class ChoiceController extends AppController {
 
@@ -19,6 +20,8 @@ class ChoiceController extends AppController {
         $endHour= $_POST['endHour'];
         $endMinute = $_POST['endMinute'];
         $color = $_POST['color'];
+        $connection = new ChoiceConnection();
+
            
         if (strlen($name)==0 || strlen($startHour)==0 || strlen($startMinute)==0
            || strlen($endHour)==0 || strlen($endMinute)==0) {
@@ -44,25 +47,34 @@ class ChoiceController extends AppController {
             return;
         }
 
-        if($startHour>$endHour)
+        if(!$this->checkTime($startHour,$startMinute,$endHour,$endMinute))
         {
-            $this->render('choice', ['messages' => ['Godzina rozpoczęcia musi być równa lub mniejsza od godziny zakończenia!']]);
+            $this->render('choice', ['messages' => ['Czas rozpoczęcia  mniejszy od czasu zakończenia!']]);
+            
             return;
         }
 
-        if()
+        if(!$connection->checkHours($startHour,$startMinute,$endHour,$endMinute,$day))
         {
-            $this->render('choice', ['messages' => ['Godzina rozpoczęcia musi być równa lub mniejsza od godziny zakończenia!']]);
+            $this->render('choice', ['messages' => ['W tych godzinach odbywają się już inne zajęcia!']]);
             return;
+        } 
+    
+        $foo = new PlanController();
+        $foo->addNewLesson($day,$name,$startHour,$startMinute,$endHour,$endMinute,$color);
+    }
+
+    public function checkTime($startHour,$startMinute,$endHour,$endMinute){
+        $flag = true;
+        $start_time = ($startHour)*60 + $startMinute;
+        $end_time = ($endHour)*60 + $endMinute;
+
+        if($end_time<=$start_time)
+        {
+            $flag = false;
         }
 
-        if($startHour>$endHour)
-        {
-            $this->render('choice', ['messages' => ['Godzina rozpoczęcia musi być równa lub mniejsza od godziny zakończenia!']]);
-            return;
-        }
+        return $flag;
 
-        $newLesson = new PlanController();
-       // $newLesson->addNewLesson();
     }
 }

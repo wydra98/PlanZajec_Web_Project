@@ -5,7 +5,13 @@ require_once __DIR__.'//..//Models//Lesson.php';
 class PlanConnection extends Connection {
     
     public function read(){
-        $_SESSION['lessons'] = array();
+        $_SESSION['lessonsMONDAY'] = array();
+        $_SESSION['lessonsTUESDAY'] = array();
+        $_SESSION['lessonsWEDNESDAY'] = array();
+        $_SESSION['lessonsTHURSDAY'] = array();
+        $_SESSION['lessonsFRIDAY'] = array();
+        $_SESSION['lessonsSATURDAY'] = array();
+        $_SESSION['lessonsSUNDAY'] = array();
         
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM lesson WHERE week_id = :week_id');
@@ -24,9 +30,9 @@ class PlanConnection extends Connection {
                 $this->readNameLesson($user['lesson_name_id']);
                 $this->readHours($user['hour_id']);
                 $this->readMinutes($user['minute_id']);
-                $this->readDay($user['day_id']);
                 $this->readColor($user['color_id']);
-                $this->addLessons();
+                $this->readDay($user['day_id']);
+                $this->addLessons($_SESSION['day']);
             }
         }
     }  
@@ -89,8 +95,8 @@ class PlanConnection extends Connection {
         $_SESSION['border_color']= $users['border_color'];
     }  
 
-    public function addLessons(){  
-            array_push($_SESSION['lessons'],
+    public function addLessons($day){  
+            array_push($_SESSION['lessons'.$day.''],
             new Lesson($_SESSION['lesson_name'],
             $_SESSION['hour_start'],
             $_SESSION['hour_end'],
