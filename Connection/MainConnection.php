@@ -64,11 +64,12 @@ class MainConnection extends Connection {
     }
 
 
-    public function addNewWeek($week_name){
+    public function addNewWeek($week_name,$code){
     
         $stmt = $this->database->connect()->prepare('
-        INSERT INTO `week` (week_id,week_name) VALUES(NULL,:week_name)');
+        INSERT INTO `week` (week_id,week_name,code) VALUES(NULL,:week_name,:code)');
         $stmt->bindParam(':week_name', $week_name, PDO::PARAM_STR);
+        $stmt->bindParam(':code', $week_name, PDO::PARAM_STR);
         $stmt->execute();
 
         $stmt = $this->database->connect()->prepare('
@@ -78,72 +79,36 @@ class MainConnection extends Connection {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $stmt = $this->database->connect()->prepare('
-        INSERT INTO `owner` (owner_id,user_id,week_id,status) VALUES(NULL,:user_id,:week_id,"no")');
+        INSERT INTO `owner` (owner_id,user_id,week_id) VALUES(NULL,:user_id,:week_id)');
         $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->bindParam(':week_id', $user['week_id'], PDO::PARAM_STR);
         $stmt->execute();
     } 
 
-    public function checkNickMail(string $nickMail)
+    public function checkCode(string $code)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT * FROM user WHERE (email = :email OR nick = :nick)');
-        $stmt->bindParam(':email', $nickMail, PDO::PARAM_STR);
-        $stmt->bindParam(':nick', $nickMail, PDO::PARAM_STR);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if($user == true) {
-            $_SESSION['shareUserNick'] = $user['nick'];
-            $_SESSION['shareUser'] = $user['user_id'];
-            $flag = true;
-        }
-        else $flag = false;
-       
-        return $flag;
-    }
-
-    public function checkPlan(string $sharePlanName)
-     {  
-        $stmt = $this->database->connect()->prepare('
-        SELECT w.week_id FROM week w 
+        SELECT w.code FROM week w  
         join owner o on o.week_id=w.week_id
-        WHERE w.week_name = :week_name AND o.user_id = :user_id');
-        $stmt->bindParam(':week_name', $sharePlanName, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $_SESSION['shareUser'] , PDO::PARAM_STR);
+        WHERE code = :code AND o.user_id = :user_id');
+        $stmt->bindParam(':code', $code, PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($user == true) {
-            $_SESSION['shareWeekId']=$user['week_id'];
-            $flag = true;
+        if($user == false) {
+            $flag = false;
         }
-        else $flag = false;
+        else $flag = true;
     
         return $flag;
     }
 
-    public function checkShare(){
+    public function addShareWeek($sharePlanName,$code){
         $stmt = $this->database->connect()->prepare('
-        SELECT status FROM owner
-        WHERE week_id = :week_id AND user_id = :user_id');
-        $stmt->bindParam(':week_id', $_SESSION['shareWeekId'], PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $_SESSION['shareUser'] , PDO::PARAM_STR);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if($user['status'] == "yes") {
-            $flag = true;
-        }
-        else $flag = false;
-    
-        return $flag;
-    }
-
-    public function addShareWeek($sharePlanName){
-        $stmt = $this->database->connect()->prepare('
-        INSERT INTO `week` (week_id,week_name) VALUES(NULL,:week_name)');
+        INSERT INTO `week` (week_id,week_name,code) VALUES(NULL,:week_name,:code)');
         $stmt->bindParam(':week_name', $sharePlanName, PDO::PARAM_STR);
+        $stmt->bindParam(':code', $week_name, PDO::PARAM_STR);
         $stmt->execute();
 
         $stmt = $this->database->connect()->prepare('
@@ -174,7 +139,7 @@ class MainConnection extends Connection {
         }
 
         $stmt = $this->database->connect()->prepare('
-        INSERT INTO `owner` (owner_id,user_id,week_id,status) VALUES(NULL,:user_id,:week_id,"no")');
+        INSERT INTO `owner` (owner_id,user_id,week_id) VALUES(NULL,:user_id,:week_id)');
         $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->bindParam(':week_id', $number['week_id'], PDO::PARAM_STR);
         $stmt->execute();

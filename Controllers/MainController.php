@@ -17,6 +17,7 @@ class MainController extends AppController {
     public function verifyNewPlan()
     {
         $namePlan = $_POST['namePlan']; 
+        $code = uniqid();
         $foo = new MainConnection();
         
         if (strlen($namePlan)==0) {
@@ -39,18 +40,20 @@ class MainController extends AppController {
             return;
         }
 
-        $foo->addNewWeek($namePlan);
+        $foo->addNewWeek($namePlan,$code);
         $foo->readWeekName();
+
         $this->render('main', ['messages' => ['Dodano nowy plan!']]);
         return;
     }
 
     public function verifySharePlan()
     {
-        $nickMail = $_POST['nickMail'];
-        $sharePlanName = $_POST['sharePlanName'];
+        $code = $_POST['code'];
         $newPlanName = $_POST['newPlanName'];
+        $newCode = uniqid();
         $foo = new MainConnection();
+
 
         if (strlen($nickMail)==0 || strlen($sharePlanName)==0 || strlen($newPlanName)==0) {
             $this->render('main', ['messages' => ['Uzupełnij wszystkie dane!']]);
@@ -67,23 +70,14 @@ class MainController extends AppController {
             return;
         }
 
-        if (!$foo->checkNickMail($nickMail)) {
-            $this->render('main', ['messages' => ['Użytkownik o podanych danych nie istnieje!']]);
+        if (!$foo->checkCode($code)) {
+            $this->render('main', ['messages' => ['Podany kod jest niepoprawny!']]);
             return;
         }
 
-        if (!$foo->checkPlan($sharePlanName)) {
-            $this->render('main', ['messages' => ['Podany użytkownik nie ma takiego planu!']]);
-            return;
-        }
-
-        if (!$foo->checkShare()) {
-            $this->render('main', ['messages' => ['Podany plan jest nieudostępniony!']]);
-            return;
-        }
-
-        $foo->addShareWeek($newPlanName);
+        $foo->addShareWeek($newPlanName,$newCode);
         $foo->readWeekName();
+        
         $this->render('main', ['messages' => ['Dodano udostępniony plan!']]);
         return;
     }

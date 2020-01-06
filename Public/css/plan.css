@@ -13,6 +13,15 @@
     padding-bottom: 20px;
 }
 
+[id*="lesson"],.labelnames,.labelhours{
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+[id*="lesson"]:hover{
+  filter: brightness(120%);
+}
+
 .buttonstart{
     background-color: rgb(245, 245, 245);
     height:30px;

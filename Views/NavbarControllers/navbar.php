@@ -30,7 +30,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link">UDOSTĘPNIJ PLAN</a>
+                        <a class="nav-link">KOD PLANU</a>
                     </li>
 
                     <li class="nav-item">

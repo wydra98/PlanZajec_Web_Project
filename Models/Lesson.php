@@ -9,7 +9,8 @@ class Lesson {
     private $color;
     private $weekNumber;
     private $week_name;
-    private $dayId;
+    private $lessonId;
+
 
     public function __construct(
         string $name,
@@ -20,7 +21,7 @@ class Lesson {
         string $color,
         string $borderColor,
         $weekNumber,
-        string $day
+        $lessonId
     ) {
         $this->name = $name;
         $this->startHour = $startHour;
@@ -30,7 +31,7 @@ class Lesson {
         $this->color = $color;
         $this->borderColor = $borderColor;
         $this->weekNumber = $weekNumber;
-        $this->day = $day;
+        $this->lessonId = $lessonId;
     }
 
     public function getName()
@@ -73,9 +74,10 @@ class Lesson {
         return $this->weekNumber;
     }
 
-    public function getDay()
+    public function getLessonId()
     {
-        return $this->day;
+        return $this->lessonId;
     }
+
 
 }

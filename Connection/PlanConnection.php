@@ -4,37 +4,39 @@ require_once __DIR__.'//..//Models//Lesson.php';
 
 class PlanConnection extends Connection {
     
-    public function read(){
-        $_SESSION['lessonsMONDAY'] = array();
-        $_SESSION['lessonsTUESDAY'] = array();
-        $_SESSION['lessonsWEDNESDAY'] = array();
-        $_SESSION['lessonsTHURSDAY'] = array();
-        $_SESSION['lessonsFRIDAY'] = array();
-        $_SESSION['lessonsSATURDAY'] = array();
-        $_SESSION['lessonsSUNDAY'] = array();
-        
+    public function read($day_id){
+        $array = array();
+
         $stmt = $this->database->connect()->prepare('
-        SELECT * FROM lesson WHERE week_id = :week_id');
+        SELECT * FROM lesson WHERE week_id = :week_id AND day_id = :day_id');
         $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+        $stmt->bindParam(':day_id', $day_id, PDO::PARAM_STR);
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if(count($users)>0){
             foreach($users as $user){
-                $_SESSION['lesson_id'] = $user['lesson_id'];
-                $_SESSION['day_id'] = $user['day_id'];
                 $_SESSION['week_id'] = $user['week_id'];
-                $_SESSION['color_id']= $user['color_id'];
-                $_SESSION['week_number'] = $user['week_number'];
 
                 $this->readNameLesson($user['lesson_name_id']);
                 $this->readHours($user['hour_id']);
                 $this->readMinutes($user['minute_id']);
                 $this->readColor($user['color_id']);
-                $this->readDay($user['day_id']);
-                $this->addLessons($_SESSION['day']);
+
+                array_push($array,
+                new Lesson($_SESSION['lesson_name'],
+                $_SESSION['hour_start'],
+                $_SESSION['hour_end'],
+                $_SESSION['minute_start'],
+                $_SESSION['minute_end'],
+                $_SESSION['color'],
+                $_SESSION['border_color'],
+                $user['week_number'],
+                $user['lesson_id'])
+                );
             }
         }
+        return $array;
     }  
 
     public function readHours($hourId)
@@ -69,9 +71,11 @@ class PlanConnection extends Connection {
         $stmt->execute();
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        return $users;
         $_SESSION['lesson_name']= $users['lesson_name'];
     }  
 
+    /*
     public function readDay($dayId)
     {
         $stmt = $this->database->connect()->prepare('
@@ -81,7 +85,7 @@ class PlanConnection extends Connection {
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $_SESSION['day']= $users['name_day'];
-    }  
+    }  */
 
     public function readColor($colorId)
     {
@@ -95,17 +99,15 @@ class PlanConnection extends Connection {
         $_SESSION['border_color']= $users['border_color'];
     }  
 
-    public function addLessons($day){  
-            array_push($_SESSION['lessons'.$day.''],
-            new Lesson($_SESSION['lesson_name'],
-            $_SESSION['hour_start'],
-            $_SESSION['hour_end'],
-            $_SESSION['minute_start'],
-            $_SESSION['minute_end'],
-            $_SESSION['color'],
-            $_SESSION['border_color'],
-            $_SESSION['week_number'],
-            $_SESSION['day']));
-    }
+    public function removeLesson($lesson_id)
+    {
+        $stmt = $this->database->connect()->prepare('
+        DELETE FROM lesson WHERE lesson_id = :lesson_id');
+        $stmt->bindParam(':lesson_id', $lesson_id, PDO::PARAM_STR);
+        $stmt->execute();
+        $users = $stmt->fetch(PDO::FETCH_ASSOC);
+    }  
+
+   
 
 }

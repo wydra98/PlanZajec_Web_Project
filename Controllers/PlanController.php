@@ -2,6 +2,7 @@
 require_once 'AppController.php';
 require_once __DIR__.'//..//Connection//PlanConnection.php';
 require_once __DIR__.'//..//Models//Lesson.php';
+require_once 'LoginController.php';
 
 class PlanController extends AppController {
 
@@ -11,8 +12,6 @@ class PlanController extends AppController {
         {
             $_SESSION['chooseWeek']=$_POST['id'];
             $_SESSION['weekNumber']=1;
-            $plan= new PlanConnection();
-            $plan->read();
             $this->render('plan');
         }
             
@@ -41,24 +40,18 @@ class PlanController extends AppController {
         else if($color == 	"#85144b" ) $border = "#80002a";
         else if($color == 	"#006213") $border = "rgb(0, 58, 0)";
         else $border = "rgb(58, 0, 0)";
-        array_push($_SESSION['lessons'.$day.''],
-            new Lesson($name,$startHour,$endHour,$startMinute,$endMinute,
-            $color,$border,$_SESSION['week_number'],$day));        
+        $connection = new PlanConnection();
+        $connection->addNewLesson($day,$name,$startHour,$startMinute,$endHour,$endMinute,$color,$border);
+        
         $this->render('plan');
     }
 
-    function removeLesson($day,$hour,$minute,$week)
+    function removeLesson()
     {
-        if($day == "MONDAY")
-        
-        if($day == "TUESDAY")
-        if($day == "WEDNESDAY")
-        if($day == "THURSDAY")
-        if($day == "FRIDAY")
-        if($day == "SATURDAY")
-        if($day == "SUNDAY")
-        unset()
+        $lessonId = $_POST['lessonId'];
+    
 
-        $this->render('plan');
+        $connection= new PlanConnection();
+        $connection -> removeLesson($lessonId);
     }
 }

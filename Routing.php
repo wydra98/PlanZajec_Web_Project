@@ -83,6 +83,11 @@ class Routing {
             'verifySharePlan' => [
                 'controller' => 'MainController',
                 'action' => 'verifySharePlan'
+            ],
+
+            'removeLesson' => [
+                'controller' => 'PlanController',
+                'action' => 'removeLesson'
             ]
 
         ];
