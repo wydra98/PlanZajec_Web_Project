@@ -7,20 +7,36 @@
     font-size: 15px;
 }
 
+.addButton{
+  margin-bottom: 2px;
+  height:70px;
+  border: 1px dotted #006400;
+  cursor:pointer;
+  background-color: white;
+  color:#006400;
+  width:100%
+}
+
+.addButton:hover{
+  border: 1px dotted #01b901;
+  color:#01b901;
+}
+
+.button{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+  height:70px;
+  cursor:pointer;
+}
+
+
 [class*="col-"]{
     padding-left: 1px;
     padding-right: 1px;
     padding-bottom: 20px;
 }
 
-[id*="lesson"],.labelnames,.labelhours{
-  cursor: pointer;
-  transition: all .3s ease-in-out;
-}
-
-[id*="lesson"]:hover{
-  filter: brightness(120%);
-}
 
 .buttonstart{
     background-color: rgb(245, 245, 245);
@@ -31,27 +47,22 @@
     font-weight: bold;
 }
 
-.button{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2px;
-    height:70px;
+.text label 
+{
+  display: block;
 }
 
 .button label{
     margin-bottom:0;
     color: white;
 }
+
 .labelday{
   margin-top:4px;
 }
 
-.labelnames{
+.text{
   margin-top:11px;
-}
-
-.labelhours{
-  font-size: 13px;
 }
 
 .labelempty{

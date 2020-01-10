@@ -12,6 +12,7 @@ class MainController extends AppController {
         $foo = new MainConnection();
         $foo->readWeekName();
         $this->render('main');
+        return;
     }
 
     public function verifyNewPlan()
@@ -42,7 +43,6 @@ class MainController extends AppController {
 
         $foo->addNewWeek($namePlan,$code);
         $foo->readWeekName();
-
         $this->render('main', ['messages' => ['Dodano nowy plan!']]);
         return;
     }
@@ -55,7 +55,7 @@ class MainController extends AppController {
         $foo = new MainConnection();
 
 
-        if (strlen($nickMail)==0 || strlen($sharePlanName)==0 || strlen($newPlanName)==0) {
+        if (strlen($newPlanName)==0) {
             $this->render('main', ['messages' => ['Uzupełnij wszystkie dane!']]);
             return;
         }
@@ -75,9 +75,9 @@ class MainController extends AppController {
             return;
         }
 
-        $foo->addShareWeek($newPlanName,$newCode);
+        $sharePlanWeek = $foo->findSharePlanWeek($code);
+        $foo->addSharePlan($newPlanName,$newCode,$sharePlanWeek['week_id']);
         $foo->readWeekName();
-        
         $this->render('main', ['messages' => ['Dodano udostępniony plan!']]);
         return;
     }
@@ -88,7 +88,7 @@ class MainController extends AppController {
         $foo->removeWeek();
         $foo->readWeekName();
         $this->render('main', ['messages' => ['Usunięto plan!']]);
-        return;
+
     }
 
     public function emptyPlans()

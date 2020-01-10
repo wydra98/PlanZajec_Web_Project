@@ -25,10 +25,7 @@
                             <a class="dropdown-item" href="?page=weekTwo">Tydzień drugi</a>
                         </div>
                     </li>
-                    <li class="nav-item" >
-                       <a class="nav-link" href="?page=choice">DODAJ LEKCJĘ</a>
-                    </li>
-
+                 
                     <li class="nav-item">
                         <a class="nav-link">KOD PLANU</a>
                     </li>

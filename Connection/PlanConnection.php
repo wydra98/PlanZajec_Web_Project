@@ -4,9 +4,9 @@ require_once __DIR__.'//..//Models//Lesson.php';
 
 class PlanConnection extends Connection {
     
-    public function read($day_id){
+    public function read($day_id)
+    {
         $array = array();
-
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM lesson WHERE week_id = :week_id AND day_id = :day_id');
         $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
@@ -16,23 +16,23 @@ class PlanConnection extends Connection {
 
         if(count($users)>0){
             foreach($users as $user){
-                $_SESSION['week_id'] = $user['week_id'];
-
-                $this->readNameLesson($user['lesson_name_id']);
-                $this->readHours($user['hour_id']);
-                $this->readMinutes($user['minute_id']);
-                $this->readColor($user['color_id']);
+                $lesson = $this->readNameLesson($user['lesson_name_id']);
+                $hours = $this->readHours($user['hour_id']);
+                $minutes = $this->readMinutes($user['minute_id']);
+                $colors = $this->readColor($user['color_id']);
+                $startTime = ($hours['hour_start'])*60 + $minutes['minute_start'];
 
                 array_push($array,
-                new Lesson($_SESSION['lesson_name'],
-                $_SESSION['hour_start'],
-                $_SESSION['hour_end'],
-                $_SESSION['minute_start'],
-                $_SESSION['minute_end'],
-                $_SESSION['color'],
-                $_SESSION['border_color'],
+                new Lesson($lesson['lesson_name'],
+                $hours['hour_start'],
+                $hours['hour_end'],
+                $minutes['minute_start'],
+                $minutes['minute_end'],
+                $colors['color'],
+                $colors['border_color'],
                 $user['week_number'],
-                $user['lesson_id'])
+                $user['lesson_id'],
+                $startTime)
                 );
             }
         }
@@ -47,8 +47,7 @@ class PlanConnection extends Connection {
         $stmt->execute();
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $_SESSION['hour_end'] = $users['hour_end'];
-        $_SESSION['hour_start'] = $users['hour_start']; 
+        return $users;
     }  
    
     public function readMinutes($minuteId)
@@ -59,8 +58,7 @@ class PlanConnection extends Connection {
         $stmt->execute();
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $_SESSION['minute_end'] = $users['minute_end'];
-        $_SESSION['minute_start'] = $users['minute_start']; 
+        return $users;
     }  
 
     public function readNameLesson($lessonId)
@@ -72,40 +70,140 @@ class PlanConnection extends Connection {
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $users;
-        $_SESSION['lesson_name']= $users['lesson_name'];
     }  
-
-    /*
-    public function readDay($dayId)
-    {
-        $stmt = $this->database->connect()->prepare('
-        SELECT * FROM day WHERE day_id = :day_id');
-        $stmt->bindParam(':day_id', $dayId, PDO::PARAM_STR);
-        $stmt->execute();
-        $users = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $_SESSION['day']= $users['name_day'];
-    }  */
 
     public function readColor($colorId)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT * FROM color WHERE color_id = :color_id');
-        $stmt->bindParam(':color_id', $colorId, PDO::PARAM_STR);
+        SELECT * FROM color WHERE color_id = :colorId');
+        $stmt->bindParam(':colorId', $colorId, PDO::PARAM_STR);
         $stmt->execute();
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $_SESSION['color']= $users['color'];
-        $_SESSION['border_color']= $users['border_color'];
+        return $users;
     }  
 
-    public function removeLesson($lesson_id)
+    public function addNewLesson($day,$lessonName,$startHour,$startMinute,$endHour,$endMinute,$color)
+    {
+        $minute_id = $this->readMinutesId($startMinute,$endMinute);
+        $hour_id = $this->readHoursId($startHour,$endHour);
+        $lesson_name_id = $this->readNameId($lessonName);
+        $color_id = $this->readColorId($color);
+        $day_id = $this->readDayId($day);
+        
+        $stmt = $this->database->connect()->prepare('
+        INSERT INTO `lesson` (lesson_id,day_id,week_id,lesson_name_id,hour_id,minute_id,color_id,week_number) 
+        VALUES(NULL,:day_id,:week_id,:lesson_name_id,:hour_id,:minute_id,:color_id,:week_number)');
+        $stmt->bindParam(':day_id', $day_id['day_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+        $stmt->bindParam(':lesson_name_id', $lesson_name_id['lesson_name_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':hour_id', $hour_id['hour_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':minute_id', $minute_id['minute_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':color_id', $color_id['color_id'], PDO::PARAM_STR);
+        $stmt->bindParam(':week_number', $_SESSION['weekNumber'], PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function readMinutesId($startMinute,$endMinute)
     {
         $stmt = $this->database->connect()->prepare('
-        DELETE FROM lesson WHERE lesson_id = :lesson_id');
-        $stmt->bindParam(':lesson_id', $lesson_id, PDO::PARAM_STR);
+        SELECT minute_id FROM minute WHERE minute_start = :minute_start AND minute_end = :minute_end');
+        $stmt->bindParam(':minute_start', $startMinute, PDO::PARAM_STR);
+        $stmt->bindParam(':minute_end', $endMinute, PDO::PARAM_STR);
         $stmt->execute();
-        $users = $stmt->fetch(PDO::FETCH_ASSOC);
+        $minute = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+        if($minute == false){
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO `minute` (minute_id,minute_start,minute_end) VALUES(NULL,:minute_start,:minute_end)');
+            $stmt->bindParam(':minute_start', $startMinute, PDO::PARAM_STR);
+            $stmt->bindParam(':minute_end', $endMinute, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            $stmt = $this->database->connect()->prepare('
+            SELECT minute_id FROM minute WHERE minute_id = (
+            SELECT MAX(minute_id) FROM minute)');
+            $stmt->execute();
+            $minute = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return $minute;
+    }  
+
+    public function readHoursId($startHour,$endHour)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT hour_id FROM hour WHERE hour_start = :hour_start AND hour_end = :hour_end');
+        $stmt->bindParam(':hour_start', $startHour, PDO::PARAM_STR);
+        $stmt->bindParam(':hour_end', $endHour, PDO::PARAM_STR);
+        $stmt->execute();
+        $hour = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($hour == false){
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO `hour` (hour_id,hour_start,hour_end) VALUES(NULL,:hour_start,:hour_end)');
+            $stmt->bindParam(':hour_start', $startHour, PDO::PARAM_STR);
+            $stmt->bindParam(':hour_end', $endHour, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            $stmt = $this->database->connect()->prepare('
+            SELECT hour_id FROM hour WHERE hour_id = (
+            SELECT MAX(hour_id) FROM hour)');
+            $stmt->execute();
+            $hour = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return $hour;
+    }  
+
+    public function readNameId($lessonName)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT lesson_name_id FROM lesson_name WHERE lesson_name = :lesson_name');
+        $stmt->bindParam(':lesson_name', $lessonName, PDO::PARAM_STR);
+        $stmt->execute();
+        $name = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($name == false){
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO `lesson_name` (lesson_name_id,lesson_name) VALUES(NULL,:lesson_name)');
+            $stmt->bindParam(':lesson_name', $lessonName, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            $stmt = $this->database->connect()->prepare('
+            SELECT lesson_name_id FROM lesson_name WHERE lesson_name_id = (
+            SELECT MAX(lesson_name_id) FROM lesson_name)');
+            $stmt->execute();
+            $name = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return $name;
+    }  
+
+    public function readColorId($color)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT color_id FROM color WHERE color = :color');
+        $stmt->bindParam(':color', $color, PDO::PARAM_STR);
+        $stmt->execute();
+        $color = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $color;
+    }  
+
+    public function readDayId($day)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT day_id FROM day WHERE name_day = :name_day');
+        $stmt->bindParam(':name_day', $day, PDO::PARAM_STR);
+        $stmt->execute();
+        $day = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $day;
+    }  
+
+
+    public function removeLesson($lessonId)
+    {
+        $stmt = $this->database->connect()->prepare('
+        DELETE FROM lesson WHERE lesson_id = :lessonId');
+        $stmt->bindParam(':lessonId', $lessonId, PDO::PARAM_STR);
+        $stmt->execute();
     }  
 
    

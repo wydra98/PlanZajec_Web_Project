@@ -28,8 +28,8 @@ class MainConnection extends Connection {
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach($users as $user){
-            $this->readWeek($user["week_id"]);
-            array_push($_SESSION['weeks'],new Week($user["week_id"],$_SESSION['week_name']));
+            $weekname = $this->readWeek($user["week_id"]);
+            array_push($_SESSION['weeks'],new Week($user["week_id"],$weekname['week_name']));
         }
     }
 
@@ -40,7 +40,7 @@ class MainConnection extends Connection {
         $stmt->execute();
         $users = $stmt->fetch(PDO::FETCH_ASSOC);
     
-        $_SESSION['week_name'] = $users['week_name'];
+        return $users;
     } 
 
         
@@ -69,7 +69,7 @@ class MainConnection extends Connection {
         $stmt = $this->database->connect()->prepare('
         INSERT INTO `week` (week_id,week_name,code) VALUES(NULL,:week_name,:code)');
         $stmt->bindParam(':week_name', $week_name, PDO::PARAM_STR);
-        $stmt->bindParam(':code', $week_name, PDO::PARAM_STR);
+        $stmt->bindParam(':code', $code, PDO::PARAM_STR);
         $stmt->execute();
 
         $stmt = $this->database->connect()->prepare('
@@ -90,25 +90,35 @@ class MainConnection extends Connection {
         $stmt = $this->database->connect()->prepare('
         SELECT w.code FROM week w  
         join owner o on o.week_id=w.week_id
-        WHERE code = :code AND o.user_id = :user_id');
+        WHERE w.code = :code AND o.user_id != :user_id');
         $stmt->bindParam(':code', $code, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($user == false) {
-            $flag = false;
-        }
+        if($user == false) $flag = false;
         else $flag = true;
     
         return $flag;
     }
 
-    public function addShareWeek($sharePlanName,$code){
+    public function findSharePlanWeek($code)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT week_id FROM week   
+        WHERE code = :code');
+        $stmt->bindParam(':code', $code, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $user;
+    }
+
+    public function addSharePlan($sharePlanName,$code,$sharePlanWeek){
         $stmt = $this->database->connect()->prepare('
         INSERT INTO `week` (week_id,week_name,code) VALUES(NULL,:week_name,:code)');
         $stmt->bindParam(':week_name', $sharePlanName, PDO::PARAM_STR);
-        $stmt->bindParam(':code', $week_name, PDO::PARAM_STR);
+        $stmt->bindParam(':code', $code, PDO::PARAM_STR);
         $stmt->execute();
 
         $stmt = $this->database->connect()->prepare('
@@ -119,7 +129,7 @@ class MainConnection extends Connection {
         
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM lesson WHERE week_id = :week_id');
-        $stmt->bindParam(':week_id',  $_SESSION['shareWeekId'], PDO::PARAM_STR);
+        $stmt->bindParam(':week_id',  $sharePlanWeek , PDO::PARAM_STR);
         $stmt->execute();
         $lessons = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
