@@ -1,14 +1,23 @@
 .container{ 
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 60px; 
+    background-color: #fcfcfc;
+    border-radius:10px;
+    border: 5px solid #fafafa;
+    max-width:850px;
 }
-
+#return{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    color:black;
+    text-decoration: underline;
+}
 .form-control{
-    border: 2px solid black;
-    border-radius: 0px;
+    border-radius: 5px;
 }
 
 label{
-    margin-top: 10px;
+    margin-top: 5px;
 }
+

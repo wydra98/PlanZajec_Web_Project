@@ -8,12 +8,13 @@ class ChoiceController extends AppController {
 
     public function choice()
     {   
+        $_SESSION['day_id'] = $_GET['day_id'];
         $this->render('choice');
     }
 
     public function verifylesson()
     {   
-        $day = $_POST['dayName'];
+        $day = $_SESSION['day_id'];
         $name = $_POST['lessonName'];
         $startHour= $_POST['startHour'];
         $startMinute = $_POST['startMinute'];
@@ -59,8 +60,8 @@ class ChoiceController extends AppController {
             return;
         } 
 
-        $dayEnglish = $this->changeNameToEnglish($day);
-        $planController->addNewLesson($dayEnglish,$name,$startHour,$startMinute,$endHour,$endMinute,$color);
+        $days = $this->readDay($day);
+        $planController->addNewLesson($days,$name,$startHour,$startMinute,$endHour,$endMinute,$color);
     }
 
     public function checkTime($startHour,$startMinute,$endHour,$endMinute){
@@ -71,17 +72,17 @@ class ChoiceController extends AppController {
         return $flag;
     }
 
-    public function changeNameToEnglish($day)
+    public function readDay($day)
     {
-        if($day=="Poniedziałek") $dayEnglish="MONDAY";
-        else if($day=="Wtorek") $dayEnglish="TUESDAY";
-        else if($day=="Środa") $dayEnglish="WEDNESDAY";
-        else if($day=="Czwartek") $dayEnglish="THURSDAY";
-        else if($day=="Piątek") $dayEnglish="FRIDAY";
-        else if($day=="Sobota") $dayEnglish="SATURDAY";
-        else $dayEnglish="SUNDAY";
+        if($day=="1") $dayToRead="MONDAY";
+        else if($day=="2") $dayToRead="TUESDAY";
+        else if($day=="3") $dayToRead="WEDNESDAY";
+        else if($day=="4") $dayToRead="THURSDAY";
+        else if($day=="5") $dayToRead="FRIDAY";
+        else if($day=="6") $dayToRead="SATURDAY";
+        else $dayToRead="SUNDAY";
 
-        return $dayEnglish;
+        return $dayToRead;
     }
 
 

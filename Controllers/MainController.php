@@ -51,7 +51,7 @@ class MainController extends AppController {
     {
         $code = $_POST['code'];
         $newPlanName = $_POST['newPlanName'];
-        $newCode = uniqid();
+        
         $foo = new MainConnection();
 
 
@@ -74,6 +74,7 @@ class MainController extends AppController {
             $this->render('main', ['messages' => ['Podany kod jest niepoprawny!']]);
             return;
         }
+        $newCode = uniqid();
 
         $sharePlanWeek = $foo->findSharePlanWeek($code);
         $foo->addSharePlan($newPlanName,$newCode,$sharePlanWeek['week_id']);

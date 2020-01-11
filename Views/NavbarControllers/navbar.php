@@ -5,6 +5,7 @@
         margin-right: 20px;
         padding-left: 5px;}
     </style>
+ 
 </head>
 <body>
     <header style="font-weight: bold;
@@ -27,14 +28,47 @@
                     </li>
                  
                     <li class="nav-item">
-                        <a class="nav-link">KOD PLANU</a>
+                        <a class="nav-link" data-toggle="modal" data-target="#code">KOD PLANU</a>
+                        <div class="modal fade" id="code" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color:green; color:white;font-weight:normal;">
+                                        Kod planu
+                                    </div>
+                                    <div class="modal-body">
+                                        Twój kod planu to : <?php echo $_SESSION['code'] ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=delete">USUŃ PLAN</a>
+                        <a class="nav-link"  data-href="?page=delete" data-toggle="modal" data-target="#confirm-delete">USUŃ PLAN</a>
+                        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color:#8E0000; color:white;font-weight:normal;">
+                                        Czy na pewno chcesz usunąć plan?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                                        <a class="btn btn-danger btn-ok">Usuń</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
+
                 </ul>
             </div>
         </nav>
     </header>
+
+   <script src="..\..\JQuery\jquery-3.4.1.js"></script>
+   <script>
+    $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });
+   </script>
 </body>

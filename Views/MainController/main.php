@@ -22,12 +22,12 @@
                 ?>
             </div>
 
-            <div class="col-12 col-md-6">
-                <a href="?page=information" class="btn btn-info btn-lg" role="button" style="background-color: #8E0000; border:3px solid rgb(58, 0, 0)"><label style="cursor:pointer">O APLIKACJI</label></a>
+            <div class="col-12 col-lg-6">
+                <a href="?page=information" class="btn btn-info btn-lg" role="button" style="background-color: #8E0000;"><label style="cursor:pointer">O APLIKACJI</label></a>
             </div>
 
-            <div class="col-12 col-md-6">
-                <label class="mainlabel" id="thefirst"  style="background-color: #006213; border:3px solid rgb(0, 58, 0)">
+            <div class="col-12 col-lg-6">
+                <label class="mainlabel" id="thefirst"  style="background-color: #006213;">
                     <label class="labelhigh">WYBIERZ PLAN</label>
                     <form action="?page=plan" method="POST">
                         <div class="form-group">
@@ -37,27 +37,28 @@
                                     echo'<option value="'.$week->getId().'">'.$week->getName().'</option>';}
                                 ?>    
                             </select>
+                            
                         <button id="confirm" type="submit" class="btn">Zatwierdź</button>
                     </div>
                 </form>
                 </label>
             </div>
 
-            <div class="col-12 col-md-6">
-            <label class="mainlabel" id="thelastone" style="background-color: #000066; border:3px solid rgb(0, 1, 58)">
+            <div class="col-12 col-lg-6">
+            <label class="mainlabel" id="thelastone" style="background-color: #0b032d;">
                 <label class="labelhigh" style="margin-top:60px">DODAJ NOWY PLAN</label>
                 <form  action="?page=verifyNewPlan" method="POST">
                     <div class="form-group">
                         <label for="u" style="margin-bottom:5px;">Nazwa nowego planu:</label>
-                        <input name="namePlan" type="text" class="form-control" id="u" style="border:3px solid rgb(0, 1, 58)" >
+                        <input name="namePlan" type="text" class="form-control" id="u">
                     </div>
                     <input id="confirm" type="submit" class="btn" value="Dodaj">
                 </form>
             </label>
             </div>
 
-            <div class="col-12 col-md-6">
-            <label class="mainlabel" id="thelastone" style="background-color: #3c0044; border:3px solid rgb(51, 0, 38)">
+            <div class="col-12 col-lg-6">
+            <label class="mainlabel" id="thelastone" style="background-color: #461220;">
                 <label class="labelhigh" style="margin-top:30px">DODAJ UDOSTĘPNIONY PLAN</label>
                 <form  action="?page=verifySharePlan" method="POST">
                     <div class="form-group">

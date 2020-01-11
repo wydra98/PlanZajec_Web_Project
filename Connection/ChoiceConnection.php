@@ -4,17 +4,10 @@ require_once __DIR__.'//..//Models//Lesson.php';
 
 class ChoiceConnection extends Connection {
 
-    public function checkHours($startHour,$startMinute,$endHour,$endMinute,$day)
+    public function checkHours($startHour,$startMinute,$endHour,$endMinute,$day_id)
     {
         $flag = true;
-        if($day == "Poniedziałek") $day_id = 1;
-        else if($day == "Wtorek") $day_id = 2;
-        else if($day == "Środa") $day_id = 3;
-        else if($day == "Czwartek") $day_id = 4;
-        else if($day == "Piątek") $day_id = 5;
-        else if($day == "Sobota") $day_id = 6;
-        else $day_id = 7;
-
+        
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM lesson WHERE week_id = :week_id AND day_id = :day_id AND week_number = :week_number');
         $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);

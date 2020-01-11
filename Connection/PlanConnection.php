@@ -206,6 +206,16 @@ class PlanConnection extends Connection {
         $stmt->execute();
     }  
 
+    public function readCode()
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT code FROM week WHERE week_id = :week_id');
+        $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+        $stmt->execute();
+        $day = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $_SESSION['code']= $day['code'];
+    }  
    
 
 }

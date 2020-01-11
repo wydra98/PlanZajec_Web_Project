@@ -90,7 +90,7 @@ class MainConnection extends Connection {
         $stmt = $this->database->connect()->prepare('
         SELECT w.code FROM week w  
         join owner o on o.week_id=w.week_id
-        WHERE w.code = :code AND o.user_id != :user_id');
+        WHERE( w.code = :code AND o.user_id != :user_id)');
         $stmt->bindParam(':code', $code, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
@@ -173,4 +173,6 @@ class MainConnection extends Connection {
         $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
         $stmt->execute();
     }
+
+
 }
