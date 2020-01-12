@@ -1,5 +1,5 @@
 <?php
-
+require_once 'Parametres.php';
 
 class Database {
     private $host;
@@ -8,10 +8,10 @@ class Database {
     private $password;
     
     public function __construct(){
-        $this->host = "localhost";
-        $this->dbname="timetable";
-        $this->username ="root";
-        $this->password = "";
+        $this->host = SERVERNAME;
+        $this->dbname= DATABASE;
+        $this->username = USERNAME;
+        $this->password = PASSWORD;
     }
 
     public function connect(){

@@ -1,0 +1,30 @@
+body{
+    font-family: 'Quicksand', sans-serif;
+    color: rgb(0, 0, 0);
+}
+
+.row{
+    font-family: 'Quicksand', sans-serif;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+h5{
+    color: #8E0000;
+    font-weight: bold;
+    margin-bottom:0px;
+    margin-top:30px;
+}
+
+.samlabel{
+    color: #461220;
+    font-weight: bold;
+    margin-top: 0px;
+    display: block;
+    margin-bottom: 0px;
+}
+
+label{
+    text-align: justify;
+}
+

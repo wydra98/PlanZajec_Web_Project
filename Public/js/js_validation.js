@@ -100,8 +100,8 @@
      return false;
     }
 
-    if (lessonName.length>15) {
-     $("#choiceMesagges").html('Nazwa lekcji nie może zawierać więcej niż 15 znaków!');
+    if (lessonName.length>=20) {
+     $("#choiceMesagges").html('Nazwa lekcji musi mieć mnie niż 20 znaków!');
      return false;
     }
 

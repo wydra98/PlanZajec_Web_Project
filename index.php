@@ -1,5 +1,4 @@
 <?php
-
 require_once 'Routing.php';
 
 $router = new Routing();
