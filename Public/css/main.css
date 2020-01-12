@@ -1,4 +1,3 @@
-
 body {
     color: white;  
     font-family: 'Quicksand', sans-serif;
@@ -7,6 +6,39 @@ body {
 [class*="col-"]{
     padding: 0px;
 }
+
+#messages{
+    text-align:center;
+}
+
+#applicationButton{
+    background-color: #8E0000;
+}
+
+#applicationLabel{
+    cursor:pointer;
+}
+
+#thefirst{
+    background-color: #006213;
+}
+
+#thesecondone{
+    background-color: #0b032d;
+}
+
+#thethirdone{
+    background-color: #461220;
+}
+
+#addNewPlan{
+    margin-top:60px;
+}
+
+#addNewSharePlan{
+    margin-top:30px;
+}
+
 
 .btn-lg, .mainlabel{
     width: 100%;
@@ -19,8 +51,10 @@ body {
 }
 
 .mainlabel,
-#thelastone form,
-#thelastone .labelhigh,
+#thesecondone form,
+#thesecondone .labelhigh,
+#thethirdone form,
+#thethirdone .labelhigh,
 #thefirst .form-group{
     display: flex;
     flex-direction: column;
@@ -38,7 +72,8 @@ body {
     margin-right: auto;
 }
 
-#thelastone .form-group,
+#thesecondone .form-group,
+#thethirdone .form-group,
 #thefirst .form-control{
     margin: auto;
     width:70%;
@@ -64,7 +99,7 @@ body {
     margin-bottom: 0px;
 }
 
-#usr{
+.usr{
     margin-bottom:5px;
 }
 

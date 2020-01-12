@@ -1,9 +1,10 @@
-
-
+<head>
+    <link rel="Stylesheet" type="text/css" href="..\Public\css\navbar.css" />
+</head>
+<body>
     <header >
-        <nav class="navbar bg-light navbar-light" style="font-weight: bold;
-    font-family: 'Quicksand', sans-serif;">
-           <a href ="?page=main" ><img src="../Public/img/Repeat Grid 3.png" width="130" height="50" style="margin-top: -22px"></a>
+        <nav class="navbar bg-light navbar-light">
+           <a href ="?page=main" ><img src="../Public/img/Repeat Grid 3.png" width="130" height="50" id="logo"></a>
 
             <ul class="navbar-nav" >
                 <li class="nav-item" >
@@ -12,3 +13,4 @@
             </ul>
         </nav>
     </header>
+</body>

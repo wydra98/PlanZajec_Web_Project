@@ -120,7 +120,7 @@ class PlanConnection extends Connection {
         $stmt->execute();
         $minute = $stmt->fetch(PDO::FETCH_ASSOC);
        
-        if($minute == false){
+        if($minute['minute_id'] == NULL){
             $stmt = $this->database->connect()->prepare('
             INSERT INTO `minute` (minute_id,minute_start,minute_end) VALUES(NULL,:minute_start,:minute_end)');
             $stmt->bindParam(':minute_start', $startMinute, PDO::PARAM_STR);
@@ -145,7 +145,7 @@ class PlanConnection extends Connection {
         $stmt->execute();
         $hour = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($hour == false){
+        if($hour['hour_id'] == NULL){
             $stmt = $this->database->connect()->prepare('
             INSERT INTO `hour` (hour_id,hour_start,hour_end) VALUES(NULL,:hour_start,:hour_end)');
             $stmt->bindParam(':hour_start', $startHour, PDO::PARAM_STR);
@@ -169,7 +169,7 @@ class PlanConnection extends Connection {
         $stmt->execute();
         $name = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($name == false){
+        if($name['lesson_name_id']  == NULL){
             $stmt = $this->database->connect()->prepare('
             INSERT INTO `lesson_name` (lesson_name_id,lesson_names) VALUES(NULL,:lesson_names)');
             $stmt->bindParam(':lesson_names', $lessonName, PDO::PARAM_STR);

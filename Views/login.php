@@ -27,6 +27,6 @@
         <a href="?page=registration" id="register">Zarejestruj</a>
     </div>
     <script src="..\Public\js\jquery-3.4.1.js"></script>
-    <script  type="text/JavaScript" src="..\Public\js\js_controll.js"></script>
+    <script  type="text/JavaScript" src="..\Public\js\js_validation.js"></script>
 </body>
 </html>

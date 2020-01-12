@@ -1,0 +1,25 @@
+.nav-item{
+    margin-right: 20px;
+    padding-left: 5px;
+}
+
+header{
+    font-weight: bold;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#logo{
+    margin-top: -22px;
+}
+
+#codes{
+    background-color:green;
+     color:white;
+     font-weight:normal;
+}
+
+#delete{
+    background-color:#8E0000; 
+    color:white;
+    font-weight:normal;
+}

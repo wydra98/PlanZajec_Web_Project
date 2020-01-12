@@ -4,6 +4,8 @@ require_once __DIR__.'//..//Models//Lesson.php';
 
 class ChoiceConnection extends Connection {
 
+    //<---------------------------------CHECK IF HOURS ARE UNIQUE----------------------------------->
+
     public function checkHours($startHour,$startMinute,$endHour,$endMinute,$day_id)
     {
         $flag = true;

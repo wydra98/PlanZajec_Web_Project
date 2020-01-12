@@ -25,7 +25,6 @@
         <?php
         require_once __DIR__.'/../Connection/PlanConnection.php';
         $connection = new PlanConnection();
-
             echo'<div class="col-md-3 col-lg-1">
                     <div class="buttonstart"><label class="labelday">Poniedziałek</label></div>';
                     write("1",$connection);
@@ -61,46 +60,43 @@
                     write("7",$connection);
 
 
-        function cmp($a, $b) {
-            return strcmp($a->getStartTime(), $b->getStartTime());
-        }  
-
         function write($number,$connection){
             $array = $connection->read($number);
             if(count($array)>0)
-            {   $flag = false; 
-                if(count($array) >= 2) usort($array, "cmp");
-
-                foreach($array as $lesson)
-                {
+            {  
+                usort($array, function($a, $b){
+                return strnatcmp($a->getStartTime(), $b->getStartTime());});
+                
+                foreach($array as $lesson){
                     if($lesson->getWeekNumber() == $_SESSION['weekNumber']){
                         if(strlen($lesson->getStartHour())==1) $lesson->setStartHour(sprintf("%02d", $lesson->getStartHour()));
                         if(strlen($lesson->getStartMinute())==1) $lesson->setStartMinute(sprintf("%02d", $lesson->getStartMinute()));
                         if(strlen($lesson->getEndHour())==1) $lesson->setEndHour(sprintf("%02d", $lesson->getEndHour()));
                         if(strlen($lesson->getEndMinute())==1) $lesson->setEndMinute(sprintf("%02d", $lesson->getEndMinute()));
-                        echo '<div class="button" 
-                        onclick="hideLesson(\''.$lesson->getLessonId().'\')"
-                        id="'.$lesson->getLessonId().'"
-                        onmouseover="mouseOver(\''.$lesson->getLessonId().'\')" 
+                        
+                        echo '<div class="button" onclick="hideLesson(\''.$lesson->getLessonId().'\')"
+                        id="'.$lesson->getLessonId().'" onmouseover="mouseOver(\''.$lesson->getLessonId().'\')" 
                         onmouseout="mouseOut(\''.$lesson->getLessonId().'\',
                         \''.$lesson->getColor().'\',\''.$lesson->getBorderColor().'\',
                         \''.$lesson->getName().'\',\''.$lesson->getStartHour().'\',
                         \''.$lesson->getStartMinute().'\',\''.$lesson->getEndHour().'\',\''.$lesson->getEndMinute().'\')"
                         style="background-color:'.$lesson->getColor().'; border: 3px solid '.$lesson->getBorderColor().'">
+
                             <div class="text">
                                 <label>'.$lesson->getName().'</label>
                                 <label>'.$lesson->getStartHour().':'.$lesson->getStartMinute().'-'.$lesson->getEndHour().':'.$lesson->getEndMinute().'</label>
                             </div></div>';
-                        $flag = true;
                     }
                 }
         }
         echo '<div class="button"><a href="?page=choice&day_id='.$number.'"><button class = "addButton"><i class="fa fa-plus-circle fa-2x"></i></button></a></div>';
-    }
+        }
+
         ?>
 
         </div>
     </div>
-    <script  type="text/JavaScript" src="..\Public\js\js_controll.js"></script>
+    <script  type="text/JavaScript" src="..\Public\js\js_validation.js"></script>
+    <script  type="text/JavaScript" src="..\Public\js\js_plan.js"></script>
 </body>
 </html>

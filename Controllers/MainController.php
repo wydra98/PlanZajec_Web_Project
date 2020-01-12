@@ -9,6 +9,7 @@ class MainController extends AppController {
 
     public function mainFunction()
     {  
+        $_SESSION['weekNumber']=1;
         $connection = new MainConnection();
         $connection->readWeekName();
         $this->render('main');

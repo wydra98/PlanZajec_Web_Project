@@ -8,18 +8,35 @@ class PlanController extends AppController {
 
     public function plan()
     {   
-        $_SESSION['weekNumber'] = $_GET['weekNumber'];
-        $_SESSION['chooseWeek'] = $_POST['id'];
-        $connection = new PlanConnection();
-        $connection -> readCode();
-        $this->render('plan');
+        if(isset($_POST['id'])){
+            $_SESSION['chooseWeek'] = $_POST['id'];
+            $connection = new PlanConnection();
+            $connection -> readCode();
+            $this->render('plan');
+        }
+        else
+            $this->render('plan');
     }
+
+    public function weekOne()
+    {   	      
+        $_SESSION['weekNumber'] = 1;	        
+        $this->render('plan');	        
+    }	    
+
+    public function weekTwo()	   
+    {   	     
+        $_SESSION['weekNumber'] = 2;	       
+        $this->render('plan');	        
+    }	 
 
     function addNewLesson($day,$lessonName,$startHour,$startMinute,$endHour,$endMinute,$color)
     {
         $connection = new PlanConnection();
         $connection->addNewLesson($day,$lessonName,$startHour,$startMinute,$endHour,$endMinute,$color);
-        $this->render('plan');
+        $url = "http://$_SERVER[HTTP_HOST]/";
+        header("Location: {$url}?page=plan");
+        return;
     }
 
     function removeLesson()

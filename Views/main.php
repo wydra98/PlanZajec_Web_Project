@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
 
-        <div class="col-8 offset-2 col-md-6 offset-md-3" id = "messages" style="text-align:center;">
+        <div class="col-8 offset-2 col-md-6 offset-md-3" id = "messages">
                 <?php
                     if(isset($messages)){
                         foreach($messages as $message) {
@@ -23,18 +23,18 @@
             </div>
 
             <div class="col-12 col-lg-6">
-                <a href="?page=information" class="btn btn-info btn-lg" role="button" style="background-color: #8E0000;"><label style="cursor:pointer">O APLIKACJI</label></a>
+                <a href="?page=information" class="btn btn-info btn-lg" role="button" id="applicationButton"><label id="applicationLabel">O APLIKACJI</label></a>
             </div>
 
             <div class="col-12 col-lg-6">
-                <label class="mainlabel" id="thefirst"  style="background-color: #006213;">
+                <label class="mainlabel" id="thefirst">
                     <label class="labelhigh">WYBIERZ PLAN</label>
                     <form action="?page=plan" method="POST" onsubmit="return confirmPlanValidation();" name="confirm">
                         <div class="form-group">
                             <select name="id" class="form-control">
                                 <?php
                                  foreach($_SESSION['weeks'] as $week){
-                                    echo'<option name="option" value="'.$week->getId().'">'.$week->getName().'</option>';}
+                                    echo'<option value="'.$week->getId().'">'.$week->getName().'</option>';}
                                 ?>    
                             </select>
                         <button id="confirm" type="submit" class="btn">Zatwierdź</button>
@@ -44,11 +44,11 @@
             </div>
 
             <div class="col-12 col-lg-6">
-            <label class="mainlabel" id="thelastone" style="background-color: #0b032d;">
-                <label class="labelhigh" style="margin-top:60px">DODAJ NOWY PLAN</label>
+            <label class="mainlabel" id="thesecondone">
+                <label class="labelhigh" id="addNewPlan">DODAJ NOWY PLAN</label>
                 <form  action="?page=verifyNewPlan" method="POST"  onsubmit="return newNamePlanValidation();" name="newPlan">
                     <div class="form-group">
-                        <label for="u" style="margin-bottom:5px;">Nazwa nowego planu:</label>
+                        <label for="u"  class="usr">Nazwa nowego planu:</label>
                         <input name="namePlan" type="text" class="form-control" id="u">
                     </div>
                     <input id="confirm" type="submit" class="btn" value="Dodaj">
@@ -57,16 +57,16 @@
             </div>
 
             <div class="col-12 col-lg-6">
-            <label class="mainlabel" id="thelastone" style="background-color: #461220;">
-                <label class="labelhigh" style="margin-top:30px">DODAJ UDOSTĘPNIONY PLAN</label>
+            <label class="mainlabel" id="thethirdone">
+                <label class="labelhigh" id="addNewSharePlan">DODAJ UDOSTĘPNIONY PLAN</label>
                 <form  action="?page=verifySharePlan" method="POST" onsubmit="return newShareNamePlanValidation();" name='newSharePlan'>
                     <div class="form-group">
                         <label for="usr">Kod planu:</label>
-                        <input name="code" type="text" class="form-control" id="usr" >
+                        <input name="code" type="text" class="form-control" class="usr" >
                     </div>
                     <div class="form-group">
                         <label for="usr">Twoja nazwa planu:</label>
-                        <input name="newPlanName" type="text" class="form-control" id="usr">
+                        <input name="newPlanName" type="text" class="form-control" class="usr">
                     </div>
                     <input id="confirm" type="submit" class="btn" value="Dodaj">
                 </form>
@@ -75,7 +75,7 @@
         </div>
     </div>
 
-   <script src="..\Public\js\jquery-3.4.1.js"></script>
-   <script  type="text/JavaScript" src="..\Public\js\js_controll.js"></script>
+    <script src="..\Public\js\jquery-3.4.1.js"></script>
+    <script  type="text/JavaScript" src="..\Public\js\js_validation.js"></script>
 </body>
 </html>

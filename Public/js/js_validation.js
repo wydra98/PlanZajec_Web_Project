@@ -1,42 +1,4 @@
 
-function hideLesson(lessonId)
-{
-    $('#'+lessonId).css('display', 'none');
-
-    apiUrl = 'http://localhost';
-
-    $.ajax({
-        method : "POST",
-        url : apiUrl + '/?page=removeLesson',
-        data : { 
-            lessonId : lessonId,
-        },
-        success:function() {
-            console.log("called");
-        }
-   });
-   
-}
-function mouseOver(id) {
-    $('#'+id).children('.text').html('Usunąć?');
-    $('#'+id).children('.text').css('margin-top','20px');
-    $('#'+id).children('.text').css('color','red');
-    $('#'+id).children('.text').css('font-weight','bold');
-    $('#'+id).css('background-color', 'white');
-    $('#'+id).css('border', '3px solid red');
-  }
-  
-function mouseOut(id,color,borderColor,name,startHour,startMinute,endHour,endMinute) {
-    $('#'+id).children('.text').html('<label>'+name+'</label><label>'+startHour+':'+startMinute+'-'+endHour+':'+endMinute+'</label>');
-    $('#'+id).children('.text').css('font-weight','normal');
-    $('#'+id).children('.text').css('margin-top','11px');
-    $('#'+id).children('.text').css('color','white');
-    $('#'+id).css('background-color', color);
-    $('#'+id).css('border', '3px solid ' + borderColor);
-   
-  }
-  
-
   function loginValidation(){
     var name = document.forms['login']['emailNick'].value;
     var password = document.forms['login']['password'].value;
@@ -116,51 +78,70 @@ function mouseOut(id,color,borderColor,name,startHour,startMinute,endHour,endMin
     return true;
   }
 
-  
   function confirmPlanValidation(){
-    var plan = document.forms['confirm']['option'].value;
-   alert(plan);
+    var plan = document.forms['confirm']['id'].value;
     if (plan.length==0) {
      $("#messages").html('Nie masz żadnego planu!');
      return false;
    }
- 
     return true;
   }
 
 
   function newLessonValidation(){
-    var email = document.forms['registration']['email'].value;
-    var nick = document.forms['registration']['nick'].value;
-    var password1 = document.forms['registration']['password1'].value;
-    var password2 = document.forms['registration']['password2'].value;
-
+    var lessonName = document.forms['newLesson']['lessonName'].value;
+    var startHour = (document.forms['newLesson']['startHour'].value);
+    var startMinute = (document.forms['newLesson']['startMinute'].value);
+    var endHour = (document.forms['newLesson']['endHour'].value);
+    var endMinute  = (document.forms['newLesson']['endMinute'].value);
    
-    if (email.length==0 || nick.length==0 || password1.length==0 || password2.length==0) {
-     $("#registrationMessages").html('Uzupełnij wszystkie dane!');
+    if (lessonName.length==0 || startHour.length==0 || startMinute.length==0 || endHour.length==0 || endMinute .length==0) {
+     $("#choiceMesagges").html('Uzupełnij wszystkie dane!');
      return false;
-   }
- 
-    if (nick.length<3 || nick.length>15) {
-      $("#registrationMessages").html('Nick musi posiadać od 3 do 15 znaków!');
+    }
+
+    if (lessonName.length>15) {
+     $("#choiceMesagges").html('Nazwa lekcji nie może zawierać więcej niż 15 znaków!');
+     return false;
+    }
+
+    if (startHour.length>2 || startMinute.length>2 || endHour.length>2 || endMinute .length>2) {
+      $("#choiceMesagges").html('Nie poprawna ilość znaków w czasie!');
       return false;
     }
 
-    if(password1.length<6 || password1.length>15){
-      $("#registrationMessages").html('Hasło musi posiadać od 6 do 15 znaków!');
-      return  false;
+    if (isNaN(startHour) || isNaN(startMinute) || isNaN(endHour) || isNaN(endMinute)) {
+      $("#choiceMesagges").html('Godziny i minuty muszą być liczbami!');
+      return false;
     }
 
-    if(password1 != password2){
-      $("#registrationMessages").html('Podane hasła są różne!');
+    var startHour = parseInt(document.forms['newLesson']['startHour'].value);
+    var startMinute = parseInt(document.forms['newLesson']['startMinute'].value);
+    var endHour = parseInt(document.forms['newLesson']['endHour'].value);
+    var endMinute  = parseInt(document.forms['newLesson']['endMinute'].value);
+
+    if (startHour<0 || startHour>23 || endHour<0 || endHour>23) {
+      $("#choiceMesagges").html('Niepoprawna godzina!');
+      return false;
+    }
+
+    if (startMinute<0 || startMinute>60 || endMinute<0  || endMinute>60) {
+      $("#choiceMesagges").html('Niepoprawna minuta!');
+      return false;
+    }
+
+    if(!checkTime(startHour,startMinute,endHour,endMinute)){
+      $("#choiceMesagges").html('Czas rozpoczęcia musi być mniejszy bądź równy czasu zakończenia!');
       return false;
     }
 
     return true;
   }
 
-
-
-  $('#confirm-delete').on('show.bs.modal', function(e) {
-    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-});
+  function checkTime(startHour,startMinute,endHour,endMinute){
+    flag = true;
+    start_time = (startHour)*60 + startMinute;
+    end_time = (endHour)*60 + endMinute;
+    if(end_time<=start_time) flag = false;
+    return flag;
+  }

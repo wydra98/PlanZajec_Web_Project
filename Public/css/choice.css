@@ -1,18 +1,53 @@
 .container{ 
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
-    margin-top: 60px; 
+    margin-top: 40px; 
     background-color: #fcfcfc;
     border-radius:10px;
     border: 5px solid #fafafa;
     max-width:850px;
 }
-#return{
-    font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
-    color:black;
-    text-decoration: underline;
+
+#choiceMesagges{
+    color: rgb(120, 23, 53);
+    margin-top:10px;
+    margin-bottom:10px; 
+    text-align:center;
 }
+
+#addLessonLabel{
+    font-size: 18px;
+}
+
+.labels{
+    margin-bottom: 0px;
+}
+
+.start_finish{
+    margin-bottom:-5px;
+    margin-top:10px;
+    display: block;
+}
+
+.allDivFinishStart{
+    display:flex; 
+    flex-direction: column;
+}
+
+#start{
+    color:blue;
+}
+
+#finish{
+    color:red;
+}
+
+#checkColor{
+    margin-top: 10px;
+    margin-bottom:0px
+}
+
+
 .form-control{
     border-radius: 5px;
 }
@@ -21,3 +56,22 @@ label{
     margin-top: 5px;
 }
 
+#submitButton{
+    background-color:#8E0000;
+    border: 3px solid rgb(58, 0, 0);
+    margin-top:30px;
+}
+
+#return{
+    cursor:pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    color:black;
+    text-decoration: underline;
+}
+
+#returnToPlan{
+    background-color:#fcfcfc; 
+    border:none; 
+    cursor: context-menu;
+}

@@ -1,18 +1,11 @@
-
 <head>
     <script src="..\Public\js\jquery-3.4.1.js"></script>
-    <style>
-    .nav-item{
-        margin-right: 20px;
-        padding-left: 5px;}
-    </style>
- 
+    <link rel="Stylesheet" type="text/css" href="..\Public\css\navbar.css" />
 </head>
 <body>
-    <header style="font-weight: bold;
-    font-family: 'Quicksand', sans-serif;">
+    <header>
         <nav class="navbar navbar-light bg-light navbar-expand-md">
-            <a href ="?page=main" ><img src="../Public/img/Repeat Grid 3.png" width="130" height="50" style="margin-top: -22px"></a>
+            <a href ="?page=main" ><img src="../Public/img/Repeat Grid 3.png" width="130" height="50" id="logo"></a>
         
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
 				<span class="navbar-toggler-icon" ></span>
@@ -33,7 +26,7 @@
                         <div class="modal fade" id="code" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header" style="background-color:green; color:white;font-weight:normal;">
+                                    <div class="modal-header" id="codes">
                                         Kod planu
                                     </div>
                                     <div class="modal-body">
@@ -49,7 +42,7 @@
                         <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header" style="background-color:#8E0000; color:white;font-weight:normal;">
+                                    <div class="modal-header" id="delete">
                                         Czy na pewno chcesz usunąć plan?
                                     </div>
                                     <div class="modal-footer">
@@ -70,5 +63,5 @@
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
     crossorigin="anonymous"></script>
     <script src ="..\Public\bootstrap\js\bootstrap.min.js"></script>
-    <script  type="text/JavaScript" src="..\Public\js\js_controll.js"></script>
+    <script  type="text/JavaScript" src="..\Public\js\js_plan.js"></script>
 </body>

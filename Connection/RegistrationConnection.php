@@ -3,6 +3,7 @@ require_once "Connection.php";
 
 class RegistrationConnection extends Connection {
 
+//<---------------------------------VALIDATION: CHECK IF THE SAME EMAIL EXIST IN BASE----------------------------------->
 
     public function checkEmail(string $email)
     {
@@ -20,6 +21,9 @@ class RegistrationConnection extends Connection {
         return $flag;
     }
 
+
+//<---------------------------------VALIDATION: CHECK IF THE SAME NICK EXIST IN BASE----------------------------------->
+
     public function checkNick(string $nick)
     {
         $stmt = $this->database->connect()->prepare('
@@ -35,6 +39,8 @@ class RegistrationConnection extends Connection {
     
         return $flag;
     }
+
+    //<--------------------------------------------ADD NEW USER TO BASE---------------------------------------------->
 
     public function addNewUser(string $email, string $nick,string $password)
     {

@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="Stylesheet" href="..\Public\bootstrap\css\bootstrap.min.css" />
+    <link rel="Stylesheet" type="text/css" href="..\Public\css\information.css" />
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <title>PlanZajec</title>
 </head>
