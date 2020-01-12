@@ -4,6 +4,9 @@ require_once __DIR__.'//..//Models//Lesson.php';
 
 class PlanConnection extends Connection {
     
+
+    //<---------------------------------READ USERS LESSON FROM BASE----------------------------------->
+
     public function read($day_id)
     {
         $array = array();
@@ -23,12 +26,12 @@ class PlanConnection extends Connection {
                 $startTime = ($hours['hour_start'])*60 + $minutes['minute_start'];
 
                 array_push($array,
-                new Lesson($lesson['lesson_name'],
+                new Lesson($lesson['lesson_names'],
                 $hours['hour_start'],
                 $hours['hour_end'],
                 $minutes['minute_start'],
                 $minutes['minute_end'],
-                $colors['color'],
+                $colors['colors'],
                 $colors['border_color'],
                 $user['week_number'],
                 $user['lesson_id'],
@@ -39,7 +42,7 @@ class PlanConnection extends Connection {
         return $array;
     }  
 
-    public function readHours($hourId)
+    private function readHours($hourId)
     {
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM hour WHERE hour_id = :hour_id');
@@ -50,7 +53,7 @@ class PlanConnection extends Connection {
         return $users;
     }  
    
-    public function readMinutes($minuteId)
+    private function readMinutes($minuteId)
     {
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM minute WHERE minute_id = :minute_id');
@@ -61,7 +64,7 @@ class PlanConnection extends Connection {
         return $users;
     }  
 
-    public function readNameLesson($lessonId)
+    private function readNameLesson($lessonId)
     {
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM lesson_name WHERE lesson_name_id = :lesson_name_id');
@@ -72,7 +75,7 @@ class PlanConnection extends Connection {
         return $users;
     }  
 
-    public function readColor($colorId)
+    private function readColor($colorId)
     {
         $stmt = $this->database->connect()->prepare('
         SELECT * FROM color WHERE color_id = :colorId');
@@ -82,6 +85,10 @@ class PlanConnection extends Connection {
 
         return $users;
     }  
+
+
+
+    //<---------------------------------ADD LESSON TO BASE----------------------------------->
 
     public function addNewLesson($day,$lessonName,$startHour,$startMinute,$endHour,$endMinute,$color)
     {
@@ -104,10 +111,10 @@ class PlanConnection extends Connection {
         $stmt->execute();
     }
 
-    public function readMinutesId($startMinute,$endMinute)
+    private function readMinutesId($startMinute,$endMinute)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT minute_id FROM minute WHERE minute_start = :minute_start AND minute_end = :minute_end');
+        SELECT readMinuteId(:minute_start,:minute_end) as minute_id');
         $stmt->bindParam(':minute_start', $startMinute, PDO::PARAM_STR);
         $stmt->bindParam(':minute_end', $endMinute, PDO::PARAM_STR);
         $stmt->execute();
@@ -129,10 +136,10 @@ class PlanConnection extends Connection {
         return $minute;
     }  
 
-    public function readHoursId($startHour,$endHour)
+    private function readHoursId($startHour,$endHour)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT hour_id FROM hour WHERE hour_start = :hour_start AND hour_end = :hour_end');
+        SELECT readHoursId(:hour_start,:hour_end) as hour_id');
         $stmt->bindParam(':hour_start', $startHour, PDO::PARAM_STR);
         $stmt->bindParam(':hour_end', $endHour, PDO::PARAM_STR);
         $stmt->execute();
@@ -154,18 +161,18 @@ class PlanConnection extends Connection {
         return $hour;
     }  
 
-    public function readNameId($lessonName)
+    private function readNameId($lessonName)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT lesson_name_id FROM lesson_name WHERE lesson_name = :lesson_name');
-        $stmt->bindParam(':lesson_name', $lessonName, PDO::PARAM_STR);
+        SELECT readNameId(:lesson_names) as lesson_name_id');
+        $stmt->bindParam(':lesson_names', $lessonName, PDO::PARAM_STR);
         $stmt->execute();
         $name = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($name == false){
             $stmt = $this->database->connect()->prepare('
-            INSERT INTO `lesson_name` (lesson_name_id,lesson_name) VALUES(NULL,:lesson_name)');
-            $stmt->bindParam(':lesson_name', $lessonName, PDO::PARAM_STR);
+            INSERT INTO `lesson_name` (lesson_name_id,lesson_names) VALUES(NULL,:lesson_names)');
+            $stmt->bindParam(':lesson_names', $lessonName, PDO::PARAM_STR);
             $stmt->execute();
     
             $stmt = $this->database->connect()->prepare('
@@ -177,26 +184,29 @@ class PlanConnection extends Connection {
         return $name;
     }  
 
-    public function readColorId($color)
+    private function readColorId($color)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT color_id FROM color WHERE color = :color');
-        $stmt->bindParam(':color', $color, PDO::PARAM_STR);
+        SELECT readColorId(:colors) as color_id');
+        $stmt->bindParam(':colors', $color, PDO::PARAM_STR);
         $stmt->execute();
         $color = $stmt->fetch(PDO::FETCH_ASSOC);
         return $color;
     }  
 
-    public function readDayId($day)
+    private function readDayId($day)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT day_id FROM day WHERE name_day = :name_day');
+        SELECT readDayId(:name_day) as day_id');
         $stmt->bindParam(':name_day', $day, PDO::PARAM_STR);
         $stmt->execute();
         $day = $stmt->fetch(PDO::FETCH_ASSOC);
         return $day;
-    }  
+    } 
 
+
+
+    //<---------------------------------REMOVE LESSON FROM BASE----------------------------------->
 
     public function removeLesson($lessonId)
     {
@@ -205,6 +215,9 @@ class PlanConnection extends Connection {
         $stmt->bindParam(':lessonId', $lessonId, PDO::PARAM_STR);
         $stmt->execute();
     }  
+
+
+    //<---------------------------------READ WEEK CODE FROM BASE----------------------------------->
 
     public function readCode()
     {

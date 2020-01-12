@@ -2,17 +2,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="Stylesheet" href="..\Bootstrap\css\bootstrap.min.css" />
-    <link rel="Stylesheet" type="text/css" href="..\..\Public\css\main.css" />
+    <link rel="Stylesheet" href="..\Public\bootstrap\css\bootstrap.min.css" />
+    <link rel="Stylesheet" type="text/css" href="..\Public\css\main.css" />
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <title>PlanZajec</title>
 </head>
 <body>
-<?php include(dirname(__DIR__).'\NavbarControllers\navbarprimary.php'); ?>    
+<?php include(dirname(__DIR__).'\Views\navbarprimary.php'); ?>    
     <div class="container">
         <div class="row">
 
-        <div class="col-8 offset-2 col-md-6 offset-md-3" id = "messages">
+        <div class="col-8 offset-2 col-md-6 offset-md-3" id = "messages" style="text-align:center;">
                 <?php
                     if(isset($messages)){
                         foreach($messages as $message) {
@@ -29,15 +29,14 @@
             <div class="col-12 col-lg-6">
                 <label class="mainlabel" id="thefirst"  style="background-color: #006213;">
                     <label class="labelhigh">WYBIERZ PLAN</label>
-                    <form action="?page=plan" method="POST">
+                    <form action="?page=plan" method="POST" onsubmit="return confirmPlanValidation();" name="confirm">
                         <div class="form-group">
                             <select name="id" class="form-control">
                                 <?php
                                  foreach($_SESSION['weeks'] as $week){
-                                    echo'<option value="'.$week->getId().'">'.$week->getName().'</option>';}
+                                    echo'<option name="option" value="'.$week->getId().'">'.$week->getName().'</option>';}
                                 ?>    
                             </select>
-                            
                         <button id="confirm" type="submit" class="btn">Zatwierdź</button>
                     </div>
                 </form>
@@ -47,7 +46,7 @@
             <div class="col-12 col-lg-6">
             <label class="mainlabel" id="thelastone" style="background-color: #0b032d;">
                 <label class="labelhigh" style="margin-top:60px">DODAJ NOWY PLAN</label>
-                <form  action="?page=verifyNewPlan" method="POST">
+                <form  action="?page=verifyNewPlan" method="POST"  onsubmit="return newNamePlanValidation();" name="newPlan">
                     <div class="form-group">
                         <label for="u" style="margin-bottom:5px;">Nazwa nowego planu:</label>
                         <input name="namePlan" type="text" class="form-control" id="u">
@@ -60,10 +59,10 @@
             <div class="col-12 col-lg-6">
             <label class="mainlabel" id="thelastone" style="background-color: #461220;">
                 <label class="labelhigh" style="margin-top:30px">DODAJ UDOSTĘPNIONY PLAN</label>
-                <form  action="?page=verifySharePlan" method="POST">
+                <form  action="?page=verifySharePlan" method="POST" onsubmit="return newShareNamePlanValidation();" name='newSharePlan'>
                     <div class="form-group">
                         <label for="usr">Kod planu:</label>
-                        <input name="code" type="text" class="form-control" id="usr">
+                        <input name="code" type="text" class="form-control" id="usr" >
                     </div>
                     <div class="form-group">
                         <label for="usr">Twoja nazwa planu:</label>
@@ -76,14 +75,7 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
-     crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
-    crossorigin="anonymous"></script>
-
-    <script src ="..\Bootstrap\js\bootstrap.min.js"></script>
+   <script src="..\Public\js\jquery-3.4.1.js"></script>
+   <script  type="text/JavaScript" src="..\Public\js\js_controll.js"></script>
 </body>
 </html>

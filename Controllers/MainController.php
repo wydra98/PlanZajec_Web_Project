@@ -9,8 +9,8 @@ class MainController extends AppController {
 
     public function mainFunction()
     {  
-        $foo = new MainConnection();
-        $foo->readWeekName();
+        $connection = new MainConnection();
+        $connection->readWeekName();
         $this->render('main');
         return;
     }
@@ -19,30 +19,20 @@ class MainController extends AppController {
     {
         $namePlan = $_POST['namePlan']; 
         $code = uniqid();
-        $foo = new MainConnection();
-        
-        if (strlen($namePlan)==0) {
-            $this->render('main', ['messages' => ['Nie podano nazwy nowego planu!']]);
-            return;
-        }
+        $connection = new MainConnection();
 
-        if (strlen($namePlan)>15) {
-            $this->render('main', ['messages' => ['Długość planu nie może mieć więcej niż 15 znaków!']]);
-            return;
-        }
-
-        if ( $foo->checkNumberWeeks()) {
+        if ($_SESSION['numberOfUserWeeks']==10) {
             $this->render('main', ['messages' => ['Osiągnięto maksymalną liczbę planów!']]);
             return;
         }
 
-        if ( $foo->check($namePlan)) {
+        if ($connection->checkNamePlanUniqueness($namePlan)) {
             $this->render('main', ['messages' => ['Już posiadasz plan o takiej nazwie!']]);
             return;
         }
 
-        $foo->addNewWeek($namePlan,$code);
-        $foo->readWeekName();
+        $connection->addNewWeek($namePlan,$code);
+        $connection->readWeekName();
         $this->render('main', ['messages' => ['Dodano nowy plan!']]);
         return;
     }
@@ -51,50 +41,38 @@ class MainController extends AppController {
     {
         $code = $_POST['code'];
         $newPlanName = $_POST['newPlanName'];
-        
-        $foo = new MainConnection();
+        $connection = new MainConnection();
 
-
-        if (strlen($newPlanName)==0) {
-            $this->render('main', ['messages' => ['Uzupełnij wszystkie dane!']]);
-            return;
-        }
-
-        if ($foo->checkNumberWeeks()) {
+        if ($_SESSION['numberOfUserWeeks']==10) {
             $this->render('main', ['messages' => ['Osiągnięto maksymalną liczbę planów!']]);
             return;
         }
 
-        if ( $foo->check($newPlanName)) {
+        if ($connection->checkNamePlanUniqueness($newPlanName)) {
             $this->render('main', ['messages' => ['Już posiadasz plan o takiej nazwie!']]);
             return;
         }
 
-        if (!$foo->checkCode($code)) {
+        if (!$connection->checkCode($code)) {
             $this->render('main', ['messages' => ['Podany kod jest niepoprawny!']]);
             return;
         }
-        $newCode = uniqid();
 
-        $sharePlanWeek = $foo->findSharePlanWeek($code);
-        $foo->addSharePlan($newPlanName,$newCode,$sharePlanWeek['week_id']);
-        $foo->readWeekName();
+        $newCode = uniqid();
+        $sharePlanWeek = $connection->findSharePlanWeek($code);
+        $connection->addSharePlan($newPlanName,$newCode,$sharePlanWeek['week_id']);
+        $connection->readWeekName();
         $this->render('main', ['messages' => ['Dodano udostępniony plan!']]);
         return;
     }
 
     public function delete()
     {
-        $foo = new MainConnection();
-        $foo->removeWeek();
-        $foo->readWeekName();
+        $connection = new MainConnection();
+        $connection->removeWeek();
+        $connection->readWeekName();
         $this->render('main', ['messages' => ['Usunięto plan!']]);
-
-    }
-
-    public function emptyPlans()
-    {
-        $this->render('main', ['messages' => ['Nie masz żadnego planu!']]);
         return;
     }
+
 }

@@ -3,6 +3,8 @@ require_once "Connection.php";
 
 class LoginConnection extends Connection {
 
+    //<---------------------------------CHECK IF NICK/EMAIL EXIST IN BASE----------------------------------->
+
     public function checkData(string $emailNick, string $password)
     {
         $stmt = $this->database->connect()->prepare('

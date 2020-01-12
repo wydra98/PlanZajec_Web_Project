@@ -8,8 +8,8 @@
 <body>
     <div class="container">
         <img src="../Public/img/Group 23.png">
-        <form action="?page=login" method="POST"> 
-            <div class="messages">
+        <form action="?page=login" method="POST" onsubmit="return loginValidation();" name="login"> 
+            <div class="messages" style="text-align:center;">
                 <?php
                     if(isset($messages)){
                         foreach($messages as $message) {
@@ -26,5 +26,7 @@
         </form>
         <a href="?page=registration" id="register">Zarejestruj</a>
     </div>
+    <script src="..\Public\js\jquery-3.4.1.js"></script>
+    <script  type="text/JavaScript" src="..\Public\js\js_controll.js"></script>
 </body>
 </html>

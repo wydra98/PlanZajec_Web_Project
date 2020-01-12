@@ -88,11 +88,6 @@ class Routing {
             'removeLesson' => [
                 'controller' => 'PlanController',
                 'action' => 'removeLesson'
-            ],
-
-            'returnToPlan' => [
-                'controller' => 'PlanController',
-                'action' => 'returnToPlan'
             ]
 
         ];

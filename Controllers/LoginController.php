@@ -16,11 +16,6 @@ class LoginController extends AppController {
         if ($this->isPost()) {
             $emailNick = $_POST['emailNick'];
             $password = $_POST['password'];
-
-            if (strlen($emailNick)==0 || strlen($password)==0) {
-                $this->render('login', ['messages' => ['Uzupełnij wszystkie dane!']]);
-                return;
-            }
            
             if (!$login->checkData($emailNick,$password)) {
                 $this->render('login', ['messages' => ['Użytkownik o podanych danych nie istnieje!']]);

@@ -20,7 +20,7 @@ class AppController {
 
     protected function render(string $template = null, array $variables = [])
     {
-        $templatePath = $template ? dirname(__DIR__).'\Views\\'.get_class($this).'\\'. $template.'.php' : '';
+        $templatePath = $template ? dirname(__DIR__).'\Views\\'. $template.'.php' : '';
         $output = 'File not found';
                 
         if(file_exists($templatePath)){

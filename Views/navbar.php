@@ -1,5 +1,6 @@
 
 <head>
+    <script src="..\Public\js\jquery-3.4.1.js"></script>
     <style>
     .nav-item{
         margin-right: 20px;
@@ -65,10 +66,9 @@
         </nav>
     </header>
 
-   <script src="..\..\JQuery\jquery-3.4.1.js"></script>
-   <script>
-    $('#confirm-delete').on('show.bs.modal', function(e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-    });
-   </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+    crossorigin="anonymous"></script>
+    <script src ="..\Public\bootstrap\js\bootstrap.min.js"></script>
+    <script  type="text/JavaScript" src="..\Public\js\js_controll.js"></script>
 </body>

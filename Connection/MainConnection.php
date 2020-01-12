@@ -4,20 +4,7 @@ require_once __DIR__.'//..//Models//Week.php';
 
 class MainConnection extends Connection {
 
-    public function checkNumberWeeks(){
-        $stmt = $this->database->connect()->prepare('
-        SELECT * FROM owner WHERE user_id = :user_id');
-        $stmt->bindParam(':user_id', $_SESSION["userId"], PDO::PARAM_STR);
-        $stmt->execute();
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if(count($users)>10){
-            $flag = true;
-        }
-        else $flag = false;
-
-        return $flag;
-    }
+    //<---------------------------------READ USER PLANS FROM BASE----------------------------------->
 
     public function readWeekName(){
         $_SESSION['weeks'] = array();
@@ -26,6 +13,7 @@ class MainConnection extends Connection {
         $stmt->bindParam(':user_id', $_SESSION["userId"], PDO::PARAM_STR);
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $_SESSION['numberOfUserWeeks'] = count($users);
 
         foreach($users as $user){
             $weekname = $this->readWeek($user["week_id"]);
@@ -33,7 +21,7 @@ class MainConnection extends Connection {
         }
     }
 
-    public function readWeek($id){
+    private function readWeek($id){
         $stmt = $this->database->connect()->prepare('
         SELECT week_name FROM week WHERE week_id = :week_id');
         $stmt->bindParam(':week_id', $id , PDO::PARAM_STR);
@@ -43,26 +31,45 @@ class MainConnection extends Connection {
         return $users;
     } 
 
+    //<-------------------------VALIDATION: CHECK IF PLAN NAME IS UNIQUE-------------------------->
         
-    public function check(string $name)
+    public function checkNamePlanUniqueness(string $name)
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT w.week_id FROM week w 
-        join owner o on o.week_id=w.week_id
-        WHERE w.week_name = :week_name AND o.user_id = :user_id');
+        SELECT week_id FROM week_view 
+        WHERE (week_name = :week_name AND user_id = :user_id)');
         $stmt->bindParam(':week_name', $name, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($user == false) {
-            $flag = false;
-        }
+        if($user == false) $flag = false;
         else $flag = true;
     
         return $flag;
     }
 
+
+    //<-------------------------VALIDATION: CHECK IF CODE IS CORRECT-------------------------->
+
+    public function checkCode(string $code)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT code FROM code_view 
+        WHERE(code = :code AND user_id != :user_id)');
+        $stmt->bindParam(':code', $code, PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($user == false) $flag = false;
+        else $flag = true;
+    
+        return $flag;
+    }
+
+
+    //<-----------------------------------ADD NEW PLAN---------------------------------------->
 
     public function addNewWeek($week_name,$code){
     
@@ -85,22 +92,8 @@ class MainConnection extends Connection {
         $stmt->execute();
     } 
 
-    public function checkCode(string $code)
-    {
-        $stmt = $this->database->connect()->prepare('
-        SELECT w.code FROM week w  
-        join owner o on o.week_id=w.week_id
-        WHERE( w.code = :code AND o.user_id != :user_id)');
-        $stmt->bindParam(':code', $code, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $_SESSION['userId'], PDO::PARAM_STR);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($user == false) $flag = false;
-        else $flag = true;
-    
-        return $flag;
-    }
+    //<-----------------------------------FIND AND ADD NEW SHARE PLAN FROM BASE---------------------------------------->
 
     public function findSharePlanWeek($code)
     {
@@ -156,6 +149,8 @@ class MainConnection extends Connection {
 
     } 
 
+    //<-----------------------------------REMOVE PLAN FROM BASE---------------------------------------->
+
     public function removeWeek(){
 
         $stmt = $this->database->connect()->prepare('
@@ -165,11 +160,6 @@ class MainConnection extends Connection {
 
         $stmt = $this->database->connect()->prepare('
         DELETE FROM owner WHERE week_id = :week_id');
-        $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
-        $stmt->execute();
-
-        $stmt = $this->database->connect()->prepare('
-        DELETE FROM week WHERE week_id = :week_id');
         $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
         $stmt->execute();
     }
