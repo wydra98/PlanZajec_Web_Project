@@ -11,9 +11,8 @@ class LoginController extends AppController {
 
     public function login()
     {   
-        $login = new LoginConnection();
-
         if ($this->isPost()) {
+            $login = new LoginConnection();
             $emailNick = $_POST['emailNick'];
             $password = $_POST['password'];
            

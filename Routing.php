@@ -34,7 +34,6 @@ class Routing {
                 'action' => 'mainFunction'
             ],
 
-
             'plan' => [
                 'controller' => 'PlanController',
                 'action' => 'plan'

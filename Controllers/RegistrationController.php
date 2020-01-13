@@ -18,7 +18,7 @@ class RegistrationController extends AppController {
             $password1 = $_POST['password1'];
             $password2 = $_POST['password2'];
             $emailB = filter_var($email, FILTER_SANITIZE_EMAIL);
-            $loginRegister = new RegistrationConnection();
+            $connection = new RegistrationConnection();
            
             if((filter_var($emailB, FILTER_VALIDATE_EMAIL)==false) || ($emailB!=$email))
             {
@@ -31,17 +31,17 @@ class RegistrationController extends AppController {
                 return;
             }
 
-            if($loginRegister->checkEmail($email)){
+            if($connection->checkEmail($email)){
                 $this->render('registration', ['messages' => ['Użytkownik o podanym e-maliu już istnieje!']]);
                 return;
             }
 
-            if($loginRegister->checkNick($nick)){
+            if($connection->checkNick($nick)){
                 $this->render('registration', ['messages' => ['Użytkownik o podanym nicku już istnieje!']]);
                 return;
             }
             $hashPassword= password_hash($password1,PASSWORD_DEFAULT);
-            $register->addNewUser($email,$nick,$hashPassword);
+            $connection->addNewUser($email,$nick,$hashPassword);
             
             $login = new LoginController();
             $login->successregistration();

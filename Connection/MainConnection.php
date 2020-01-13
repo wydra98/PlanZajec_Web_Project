@@ -153,7 +153,7 @@ class MainConnection extends Connection {
 
     public function removeWeek(){
 
-        $stmt = $this->database->connect()->prepare('
+       /* $stmt = $this->database->connect()->prepare('
         DELETE FROM lesson WHERE week_id = :week_id');
         $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
         $stmt->execute();
@@ -161,8 +161,29 @@ class MainConnection extends Connection {
         $stmt = $this->database->connect()->prepare('
         DELETE FROM owner WHERE week_id = :week_id');
         $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
-        $stmt->execute();
+        $stmt->execute();*/
+
+        $conn = $this->database->connect();
+        $conn->beginTransaction();
+       
+        try {
+           
+            $stmt = $conn->prepare('
+            DELETE FROM lesson WHERE week_id = :week_id');
+            $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+            $stmt->execute();
+
+            $stmt = $conn->prepare('
+            DELETE FROM owner WHERE week_id = :week_id');
+            $stmt->bindParam(':week_id', $_SESSION['chooseWeek'], PDO::PARAM_STR);
+            $stmt->execute();
+
+            $conn->commit();
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+            $conn->rollBack();
+        }
     }
-
-
 }

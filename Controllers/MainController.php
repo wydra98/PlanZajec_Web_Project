@@ -13,7 +13,6 @@ class MainController extends AppController {
         $connection = new MainConnection();
         $connection->readWeekName();
         $this->render('main');
-        return;
     }
 
     public function verifyNewPlan()
@@ -35,7 +34,6 @@ class MainController extends AppController {
         $connection->addNewWeek($namePlan,$code);
         $connection->readWeekName();
         $this->render('main', ['messages' => ['Dodano nowy plan!']]);
-        return;
     }
 
     public function verifySharePlan()
@@ -64,7 +62,6 @@ class MainController extends AppController {
         $connection->addSharePlan($newPlanName,$newCode,$sharePlanWeek['week_id']);
         $connection->readWeekName();
         $this->render('main', ['messages' => ['Dodano udostępniony plan!']]);
-        return;
     }
 
     public function delete()
@@ -73,7 +70,6 @@ class MainController extends AppController {
         $connection->removeWeek();
         $connection->readWeekName();
         $this->render('main', ['messages' => ['Usunięto plan!']]);
-        return;
     }
 
 }
